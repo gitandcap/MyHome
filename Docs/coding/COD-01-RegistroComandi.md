@@ -62,4 +62,15 @@ Tutti i comandi si eseguono da PowerShell nella cartella radice `C:\Users\Andrea
 | --- | --- | --- |
 | – | *(file creati/modificati con l'editor)* `Docs\coding\COD-01-RegistroComandi.md`, `CLAUDE.md`, `Docs\analisi\RegistroDocumenti.md` | Questo registro, la regola che lo rende obbligatorio e la sua voce nel registro dei documenti. |
 | 24 | `git add Docs CLAUDE.md` | Prepara per il commit la documentazione aggiornata. |
-| 25 | `git commit -m "Registro dei comandi (COD-01)"` | Commit locale del registro dei comandi (non ancora inviato a GitHub). |
+| 25 | `git commit -m "Registro dei comandi (COD-01)"` | Commit locale del registro dei comandi. |
+| 26 | `git push` | Invia a GitHub i commit della raccolta Postman e del registro dei comandi (eseguito da Andrea). |
+
+## 6. Verifica di deCONZ con Postman (09/11/2026)
+
+API key ottenuta da Postman, porta WebSocket 443 confermata, cartelle di sola lettura eseguite senza errori.
+
+| # | Comando | Descrizione |
+| --- | --- | --- |
+| – | *(file modificati con l'editor)* `Docs\analisi\ANA-03-SintesiUnificata.md`, `Docs\coding\COD-01-RegistroComandi.md` | Porta WebSocket 443 confermata (ANA-03 §9) e aggiornamento di questo registro. |
+| 27 | `git add Docs` | Prepara per il commit la documentazione aggiornata. |
+| 28 | `git commit -m "Porta WebSocket deCONZ confermata, registro comandi aggiornato"` | Commit locale (non ancora inviato a GitHub). |

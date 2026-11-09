@@ -217,7 +217,7 @@ Console realizzata con **Terminal.Gui**, divisa in tre zone:
    - **Attuale: deCONZ in locale** come applicazione Windows sul mini PC (`MPC`), stessa macchina del DCB.
      Verifica del 07/11/2026:
      - `deCONZ.exe` 2.33.2 (API 1.16.0), installato per utente in `C:\Users\Andrea\AppData\Local\Programs\deCONZ\`;
-     - porte in ascolto su `0.0.0.0`: **80** (REST) e **443** (WebSocket, da confermare con `websocketport`);
+     - porte in ascolto su `0.0.0.0`: **80** (REST) e **443** (WebSocket, confermata il 09/11/2026 con `websocketport` di `/api/{key}/config`);
      - ConBee II collegato su **COM3** (`USB\VID_1CF1&PID_0030`), riconosciuto da deCONZ (`devicename`: "ConBee II");
      - `GET http://127.0.0.1/api/config` senza API key: 200 OK, `bridgeid` `00212EFFFF051A5C`;
      - endpoint `/devices` e `/alarmsystems` disponibili in questa versione (`DCB-GTW-DEV`, `DCB-GTW-ALM`).
