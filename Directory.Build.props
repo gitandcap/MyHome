@@ -1,0 +1,28 @@
+<!--
+  Impostazioni di build comuni a tutti i progetti della solution MyHome.
+  MSBuild legge questo file in automatico per ogni progetto che si trova in questa cartella o in una sottocartella:
+  le regole valide per tutti stanno qui, i singoli .csproj contengono solo ciò che è specifico del progetto.
+-->
+<Project>
+
+  <PropertyGroup>
+    <!-- Versione del linguaggio C#: la più recente supportata dall'SDK installato (.NET 10). -->
+    <LangVersion>latest</LangVersion>
+
+    <!--
+      Genera il file XML della documentazione dai commenti "///".
+      Effetto voluto: il compilatore segnala con l'avviso CS1591 i membri pubblici senza commento,
+      così le linee guida di CLAUDE.md (commenti XML su classi e membri pubblici) sono verificate a ogni build.
+    -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <!--
+    Nei progetti di test i metodi pubblici sono i test stessi: il nome del test ne descrive già lo scopo,
+    quindi non si richiede il commento XML (si disattiva solo l'avviso CS1591).
+  -->
+  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+</Project>

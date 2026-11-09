@@ -1,0 +1,17 @@
+ora inizieremo a discutere del mio nuovo progetto domotico MyHome
+1) strumenti di sviluppo windows .net C#, IDE Visual Studio Comunity
+2) mini pc windows 11
+3) ConBee II che verrà fatto girare su un container Docker
+1) mini pc windows 11 con docker installato
+2) i dispositivi domotici zigbee saranno collegati a e gestiti da deconz conbee 2
+   il software di deconz girerà in un container 
+3) saranno sviluppati di componenti usando C# che permetteranno di comunicare tramite deconz rest api con la rete zigbee, che permetteranno di visualizzare i relativi stati e permetteranno di operare direttamente su questi.
+nella cartella Docs\analisi sono presenti due altri documenti generati con gemini in quanto ho già fatto un po di analisi precedentemente:
+storico\ANA-01-AnalisiGemini.md (ex AnalisiMyHomeConGemini.md)
+storico\ANA-02-SintesiArchitetturaDCC.md (ex punto_della_situazione_dcc.md)
+
+
+il progetto si chiama MyHome e ci saranno diversi moduli da implementare
+useremo la cartella Docs per organizzare i vari documenti che produrremo
+suddivisa per tipologia di documenti: base, analisi, coding
+	

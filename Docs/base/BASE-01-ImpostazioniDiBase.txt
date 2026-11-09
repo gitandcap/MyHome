@@ -1,0 +1,18 @@
+questo documento raccoglie le impostazioni di base e le modalità operative più generali sul mio modo di lavorare con l'ausilio dell'AI
+
+usa l'italiano dove possibile
+produrrai dei documenti e verranno salvati nell sottocartelle Docs
+il nome del documento sarà composto a seconda del tipo da un acronimo (ANA, COD, BASE), da un progressivo e da una breve descrizione
+all'interno di ciascuna sessione potrò operare in una delle seguenti modalità:
+1) analisi:
+lo scopo in questa fase è di raccogliere idee e di produrre un documento che le riassuma
+quando saremo in questa fase lavorerai in plan mode e sarò io a chiedertelo quando vorrò che tu compia della azioni
+
+2) coding
+in questa fase utilizzeremo le informazioni prodotte in fase di analisi e produrremo i vari componenti software
+qui sarai più operativo e passerai in accept edits on
+
+3) altro: 
+da valutare
+
+all'avvio di ogni nuova sessione mi saluterai con una massima del giorno divertente e poi mi chiederai in che modalità voglio lavorare tra analisi coding ed altro
