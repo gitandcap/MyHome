@@ -39,4 +39,6 @@ recuperabile, perché la cartella non è ancora un repository git.
 
 ## 3. Coding (`Docs\coding`)
 
-Nessun documento.
+| Documento | Data | Stato | Contenuto |
+| --- | --- | --- | --- |
+| `COD-01-RegistroComandi.md` | 09/11/2026 | documento vivo | Sequenza dei comandi eseguiti per costruire il progetto, con descrizione |

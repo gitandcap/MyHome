@@ -18,6 +18,11 @@ dispositivi Zigbee gestiti da deCONZ + ConBee II in container. Dettagli in `Docs
 2. **Coding**: dalle analisi produciamo i componenti software. Sei più operativo (accept edits on).
 3. **Altro**: da valutare di volta in volta.
 
+## Registro dei comandi (modalità coding)
+- Ogni comando eseguito per il progetto (solution, progetti, pacchetti, git, strumenti…) va aggiunto in ordine
+  in `Docs\coding\COD-01-RegistroComandi.md`, con una breve descrizione.
+- Non vanno registrati i comandi di sola consultazione (versioni, stato, elenchi).
+
 ## Linee guida per il codice (modalità coding)
 - **Leggibilità prima di tutto**: il codice deve essere facile da leggere e da valutare. Nomi espliciti,
   metodi brevi con una sola responsabilità, niente soluzioni "furbe" quando esiste un'alternativa chiara.
