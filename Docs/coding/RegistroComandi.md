@@ -1,7 +1,8 @@
-# COD-01 – Registro dei comandi del progetto
+# Registro dei comandi del progetto
 
 **Aggiornato al:** 09/11/2026
-**Stato:** documento vivo, aggiornato ogni volta che si esegue un comando per il progetto
+**Stato:** documento permanente (nome fisso, senza progressivo; era `COD-01-RegistroComandi.md`), aggiornato ogni volta
+che si esegue un comando per il progetto
 
 ---
 
@@ -73,4 +74,14 @@ API key ottenuta da Postman, porta WebSocket 443 confermata, cartelle di sola le
 | --- | --- | --- |
 | – | *(file modificati con l'editor)* `Docs\analisi\ANA-03-SintesiUnificata.md`, `Docs\coding\COD-01-RegistroComandi.md` | Porta WebSocket 443 confermata (ANA-03 §9) e aggiornamento di questo registro. |
 | 27 | `git add Docs` | Prepara per il commit la documentazione aggiornata. |
-| 28 | `git commit -m "Porta WebSocket deCONZ confermata, registro comandi aggiornato"` | Commit locale (non ancora inviato a GitHub). |
+| 28 | `git commit -m "Porta WebSocket deCONZ confermata, registro comandi aggiornato"` | Commit locale. |
+| 29 | `git push` | Invia a GitHub il commit precedente (eseguito da Andrea). |
+
+## 7. Punti aperti e documenti permanenti (09/11/2026)
+
+| # | Comando | Descrizione |
+| --- | --- | --- |
+| – | *(file creati/modificati con l'editor)* `Docs\analisi\PuntiApertiAnalisi.md`, `Docs\coding\PuntiApertiCoding.md`, `CLAUDE.md`, `Docs\analisi\RegistroDocumenti.md`, `Docs\analisi\ANA-03-SintesiUnificata.md` | Documenti permanenti dei punti aperti (analisi e coding), regole in `CLAUDE.md`, voci nel registro dei documenti, rimando in ANA-03 §9. |
+| 30 | `git mv Docs/coding/COD-01-RegistroComandi.md Docs/coding/RegistroComandi.md` | Rinomina questo registro a nome fisso: è un documento permanente. `git mv` conserva la storia del file. |
+| 31 | `git add -A` | Prepara per il commit tutte le modifiche (compresi i nuovi documenti dei punti aperti). |
+| 32 | `git commit -m "Documenti permanenti: punti aperti e registro comandi"` | Commit locale (non ancora inviato a GitHub). |

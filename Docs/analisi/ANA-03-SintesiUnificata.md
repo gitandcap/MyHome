@@ -213,6 +213,9 @@ Console realizzata con **Terminal.Gui**, divisa in tre zone:
 
 ## 9. Questioni in sospeso
 
+> L'elenco aggiornato dei punti aperti, con il loro stato, è in [`PuntiApertiAnalisi.md`](PuntiApertiAnalisi.md)
+> (decisioni e analisi) e in [`PuntiApertiCoding.md`](../coding/PuntiApertiCoding.md) (attività di coding).
+
 1. **deCONZ (`DEZ`)**
    - **Attuale: deCONZ in locale** come applicazione Windows sul mini PC (`MPC`), stessa macchina del DCB.
      Verifica del 07/11/2026:

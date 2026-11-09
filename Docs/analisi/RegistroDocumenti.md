@@ -24,6 +24,7 @@ di creare una nuova versione invece di sovrascrivere la precedente.
 | `ANA-05-CanaleClientDCB.md` | 09/11/2026 | attivo | Canale verso i client di `DCB.Server`: REST (`DCB-API`) + SSE (`DCB-EVS`) al posto di SignalR | – (approfondisce ANA-03 §6) | Non sostituisce nulla: è una decisione nuova |
 | `Acronimi.md` | 07/11/2026 | registro permanente | Acronimi di componenti e sottomoduli | – (scorporato da ANA-03 §1) | – |
 | `RegistroDocumenti.md` | 09/11/2026 | registro permanente | Questo registro | – | – |
+| `PuntiApertiAnalisi.md` | 09/11/2026 | documento permanente | Punti di analisi aperti e chiusi, con ID `PA-nn` condivisi con `PuntiApertiCoding.md` | – | – |
 
 **Nota sul 09/11/2026:** ANA-03 è stato aggiornato sovrascrivendolo, prima che esistesse la regola di salvataggio:
 passaggio da SignalR a REST + SSE ed eliminazione di `DCB-CLI` a favore della raccolta Postman `DCB-PMN`.
@@ -41,4 +42,5 @@ recuperabile, perché la cartella non è ancora un repository git.
 
 | Documento | Data | Stato | Contenuto |
 | --- | --- | --- | --- |
-| `COD-01-RegistroComandi.md` | 09/11/2026 | documento vivo | Sequenza dei comandi eseguiti per costruire il progetto, con descrizione |
+| `RegistroComandi.md` | 09/11/2026 | documento permanente | Sequenza dei comandi eseguiti per costruire il progetto, con descrizione (era `COD-01-RegistroComandi.md`; il progressivo COD-01 non si riutilizza) |
+| `PuntiApertiCoding.md` | 09/11/2026 | documento permanente | Punti operativi di coding aperti e chiusi, con ID `PA-nn` condivisi con `PuntiApertiAnalisi.md` |

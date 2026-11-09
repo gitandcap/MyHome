@@ -20,8 +20,16 @@ dispositivi Zigbee gestiti da deCONZ + ConBee II in container. Dettagli in `Docs
 
 ## Registro dei comandi (modalità coding)
 - Ogni comando eseguito per il progetto (solution, progetti, pacchetti, git, strumenti…) va aggiunto in ordine
-  in `Docs\coding\COD-01-RegistroComandi.md`, con una breve descrizione.
+  in `Docs\coding\RegistroComandi.md`, con una breve descrizione.
 - Non vanno registrati i comandi di sola consultazione (versioni, stato, elenchi).
+
+## Punti aperti (modalità analisi e coding)
+- Due documenti vivi, da aggiornare ogni volta che un punto si apre, cambia o si chiude:
+  - `Docs\analisi\PuntiApertiAnalisi.md`: punti che richiedono una decisione o un'analisi;
+  - `Docs\coding\PuntiApertiCoding.md`: punti operativi della fase di coding.
+- Gli ID `PA-nn` sono unici per i due documenti (un nuovo punto prende il numero successivo al più alto dei due)
+  e non si riutilizzano. Ogni punto indica progetto/sottomodulo e cosa blocca.
+- I punti chiusi passano nella sezione "Punti chiusi" con data ed esito.
 
 ## Linee guida per il codice (modalità coding)
 - **Leggibilità prima di tutto**: il codice deve essere facile da leggere e da valutare. Nomi espliciti,
@@ -40,8 +48,10 @@ dispositivi Zigbee gestiti da deCONZ + ConBee II in container. Dettagli in `Docs
 - Tutti i documenti prodotti vanno nella cartella `Docs`, suddivisa per tipologia: `base`, `analisi`, `coding`.
 - Nome del documento: `ACRONIMO-progressivo-BreveDescrizione` (es. `ANA-03-SintesiUnificata.md`),
   con acronimo `BASE`, `ANA` o `COD` e progressivo a due cifre.
-- Eccezioni: `Docs\analisi\Acronimi.md` (registro degli acronimi) e `Docs\analisi\RegistroDocumenti.md`
-  (registro dei documenti) sono permanenti e non seguono la numerazione.
+- Eccezioni: i documenti permanenti hanno un nome fisso, non seguono la numerazione e si aggiornano sovrascrivendoli:
+  `Docs\analisi\Acronimi.md` (registro degli acronimi), `Docs\analisi\RegistroDocumenti.md` (registro dei documenti),
+  `Docs\analisi\PuntiApertiAnalisi.md` e `Docs\coding\PuntiApertiCoding.md` (punti aperti),
+  `Docs\coding\RegistroComandi.md` (registro dei comandi).
 - **Salvataggio delle modifiche in analisi**:
   - modifiche **non importanti** → sovrascrivi il documento di partenza;
   - modifiche **importanti** (es. cambi di architettura, componenti aggiunti o eliminati) → non salvarle subito: dimmi
