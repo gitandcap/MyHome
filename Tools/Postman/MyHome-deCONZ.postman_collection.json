@@ -1,0 +1,386 @@
+{
+  "info": {
+    "name": "MyHome-deCONZ",
+    "description": "Raccolta **DCB-PMN** di MyHome: richieste dirette all'API REST di deCONZ, senza codice MyHome in mezzo (ANA-03 §8).\nServe a conoscere il comportamento reale del gateway e a verificarlo prima e durante lo sviluppo di `DCB-GTW`.\n\n## Variabili (definite negli ambienti `deCONZ-locale` e `deCONZ-container`)\n\n| Variabile | Significato | Esempio |\n| --- | --- | --- |\n| `deconzUrl` | Indirizzo base dell'API REST di deCONZ, senza `/` finale | `http://127.0.0.1` |\n| `deconzWsUrl` | Indirizzo dello stream WebSocket (porta `websocketport` di `/config`) | `ws://127.0.0.1:443` |\n| `deconzKey` | API key di deCONZ. **Nel file resta vuota**: viene impostata come *valore corrente* dalla richiesta \"Richiedi nuova API key\" o a mano | – |\n| `lightId` | Id della luce/relè usato dalle richieste su una singola luce | `1` |\n| `sensorId` | Id del sensore usato dalle richieste su un singolo sensore | `2` |\n| `groupId` | Id del gruppo usato dalle richieste su un singolo gruppo | `1` |\n\nSe `lightId`, `sensorId` o `groupId` sono vuoti, le richieste di elenco li impostano con il primo id trovato.\n\n## Come iniziare\n1. Selezionare l'ambiente `deCONZ locale`.\n2. Eseguire `01 Autenticazione / Leggi config senza API key` per verificare che deCONZ risponda.\n3. Se non si ha una API key: in Phoscon aprire *Gateway → Impostazioni avanzate → Autentica app*, poi entro 60 secondi eseguire `Richiedi nuova API key`.\n4. Eseguire `Verifica API key`, poi le altre cartelle.\n\n## Controlli automatici\nOgni richiesta verifica il codice HTTP 2xx e l'assenza di errori deCONZ nel corpo (array di `{ \"error\": { type, address, description } }`).\nL'intera raccolta si può eseguire con il *Collection Runner* di Postman oppure con Newman:\n`newman run MyHome-deCONZ.postman_collection.json -e deCONZ-locale.postman_environment.json --env-var deconzKey=<chiave>`\n\n**Attenzione:** la cartella `03 Luci` contiene comandi che accendono e spengono davvero la luce `lightId`.\n\n## WebSocket\nIl formato di esportazione delle raccolte non contiene le richieste WebSocket: in Postman crearne una a mano (*New → WebSocket*) con indirizzo `{{deconzWsUrl}}` e salvarla in questa raccolta. Gli eventi arrivano senza autenticazione.\n\n## Chiavi\nLe chiavi reali non vanno mai salvate nei file del repository: usare solo il *valore corrente* delle variabili, che Postman non esporta.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Controlli comuni a tutte le richieste della raccolta.",
+          "",
+          "pm.test(\"Risposta HTTP 2xx\", () => {",
+          "    pm.expect(pm.response.code).to.be.within(200, 299);",
+          "});",
+          "",
+          "// deCONZ segnala gli errori con un array di oggetti { \"error\": { type, address, description } },",
+          "// a volte con codice HTTP 2xx: per questo il corpo va controllato anche quando il codice è corretto.",
+          "pm.test(\"Nessun errore deCONZ nel corpo\", () => {",
+          "    let body;",
+          "    try {",
+          "        body = pm.response.json();",
+          "    } catch (e) {",
+          "        return; // corpo non JSON: non è una risposta di errore deCONZ",
+          "    }",
+          "    const errors = Array.isArray(body) ? body.filter(item => item.error) : [];",
+          "    const messages = errors.map(item => `errore ${item.error.type} su ${item.error.address}: ${item.error.description}`);",
+          "    pm.expect(messages, messages.join(\" | \")).to.be.empty;",
+          "});"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "01 Autenticazione",
+      "description": "Verifica della raggiungibilità di deCONZ e gestione dell'API key (corrisponde a `DCB-GTW-AUT`, ANA-03 §4.3).",
+      "item": [
+        {
+          "name": "Leggi config senza API key",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/config",
+            "description": "Configurazione ridotta, disponibile senza API key: verifica che deCONZ sia raggiungibile e mostra `bridgeid`, versione e `websocketport`."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Risposta con bridgeid\", () => {",
+                  "    pm.expect(pm.response.json()).to.have.property(\"bridgeid\");",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Richiedi nuova API key",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"devicetype\": \"MyHome#Postman\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{deconzUrl}}/api",
+            "description": "Richiede una nuova API key. **Prima** sbloccare il gateway da Phoscon (*Autentica app*): lo sblocco dura circa 60 secondi.\nSe il gateway non è sbloccato deCONZ risponde con l'errore 101 *link button not pressed*.\nLa chiave ottenuta viene salvata nella variabile `deconzKey` come valore corrente (non finisce nel file dell'ambiente)."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Con il gateway sbloccato deCONZ risponde [{ \"success\": { \"username\": \"<nuova API key>\" } }].",
+                  "const body = pm.response.json();",
+                  "const success = Array.isArray(body) ? body.find(item => item.success) : undefined;",
+                  "",
+                  "if (success) {",
+                  "    // Solo valore corrente dell'ambiente: Postman non lo esporta, quindi la chiave non finisce nel repository.",
+                  "    pm.environment.set(\"deconzKey\", success.success.username);",
+                  "    console.log(\"Nuova API key salvata in deconzKey\");",
+                  "}",
+                  "",
+                  "pm.test(\"API key ottenuta (errore 101: sbloccare il gateway da Phoscon e riprovare entro 60 s)\", () => {",
+                  "    pm.expect(success).to.exist;",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Verifica API key",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/config",
+            "description": "Stessa verifica eseguita da `DCB-GTW-AUT` all'avvio: con chiave valida risponde con la configurazione completa, con chiave non valida con l'errore 1 *unauthorized user*."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// La configurazione completa (non quella ridotta senza chiave) contiene la whitelist delle chiavi.",
+                  "pm.test(\"Configurazione completa (chiave valida)\", () => {",
+                  "    pm.expect(pm.response.json()).to.have.property(\"whitelist\");",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02 Gateway",
+      "description": "Stato generale del gateway (`DCB-GTW-CFG`, `DCB-GTW-DEV`).",
+      "item": [
+        {
+          "name": "Stato completo",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/{{deconzKey}}",
+            "description": "Tutto lo stato di deCONZ in una sola risposta: config, lights, sensors, groups, rules, schedules. Utile come esempio per i test dei DTO (`DCB-TST`)."
+          }
+        },
+        {
+          "name": "Dispositivi fisici",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/devices",
+            "description": "Elenco dei dispositivi fisici (indirizzi MAC), che raggruppano le risorse light/sensor dello stesso apparecchio (`DCB-GTW-DEV`)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 Luci",
+      "description": "Attuatori, relè e luci (`DCB-GTW-LIG`). **I comandi agiscono davvero sulla luce `lightId`.**",
+      "item": [
+        {
+          "name": "Elenco luci",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/lights",
+            "description": "Elenco di luci, relè e prese. Se `lightId` è vuoto viene impostato con il primo id trovato."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// La risposta è un oggetto { \"<id>\": { ...luce... } }: le chiavi sono gli id.",
+                  "const ids = Object.keys(pm.response.json() || {});",
+                  "console.log(`Luci trovate: ${ids.length} (${ids.join(\", \")})`);",
+                  "",
+                  "// Imposta lightId solo se vuoto, per non sovrascrivere una scelta fatta a mano.",
+                  "if (!pm.environment.get(\"lightId\") && ids.length > 0) {",
+                  "    pm.environment.set(\"lightId\", ids[0]);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Dettaglio luce",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/lights/{{lightId}}"
+          }
+        },
+        {
+          "name": "Accendi luce",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"on\": true\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/lights/{{lightId}}/state"
+          }
+        },
+        {
+          "name": "Luminosità al 50%",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bri\": 127\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/lights/{{lightId}}/state",
+            "description": "`bri` va da 0 a 255. Sui relè e sulle prese senza regolazione deCONZ risponde con un errore: è normale."
+          }
+        },
+        {
+          "name": "Spegni luce",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"on\": false\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/lights/{{lightId}}/state"
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 Sensori",
+      "description": "Sensori di movimento, temperatura, contatti, pulsanti (`DCB-GTW-SEN`).",
+      "item": [
+        {
+          "name": "Elenco sensori",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/sensors",
+            "description": "Elenco dei sensori. Se `sensorId` è vuoto viene impostato con il primo id trovato."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// La risposta è un oggetto { \"<id>\": { ...sensore... } }: le chiavi sono gli id.",
+                  "const ids = Object.keys(pm.response.json() || {});",
+                  "console.log(`Sensori trovati: ${ids.length} (${ids.join(\", \")})`);",
+                  "",
+                  "// Imposta sensorId solo se vuoto, per non sovrascrivere una scelta fatta a mano.",
+                  "if (!pm.environment.get(\"sensorId\") && ids.length > 0) {",
+                  "    pm.environment.set(\"sensorId\", ids[0]);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Dettaglio sensore",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/sensors/{{sensorId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 Gruppi e scene",
+      "description": "Gruppi di dispositivi e scene (`DCB-GTW-GRP`, `DCB-GTW-SCN`). **I comandi agiscono davvero su tutte le luci del gruppo `groupId`.**",
+      "item": [
+        {
+          "name": "Elenco gruppi",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/groups",
+            "description": "Elenco dei gruppi. Se `groupId` è vuoto viene impostato con il primo id trovato."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// La risposta è un oggetto { \"<id>\": { ...gruppo... } }: le chiavi sono gli id.",
+                  "const ids = Object.keys(pm.response.json() || {});",
+                  "console.log(`Gruppi trovati: ${ids.length} (${ids.join(\", \")})`);",
+                  "",
+                  "// Imposta groupId solo se vuoto, per non sovrascrivere una scelta fatta a mano.",
+                  "if (!pm.environment.get(\"groupId\") && ids.length > 0) {",
+                  "    pm.environment.set(\"groupId\", ids[0]);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Dettaglio gruppo",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/groups/{{groupId}}"
+          }
+        },
+        {
+          "name": "Scene del gruppo",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/groups/{{groupId}}/scenes"
+          }
+        },
+        {
+          "name": "Accendi gruppo",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"on\": true\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/groups/{{groupId}}/action"
+          }
+        },
+        {
+          "name": "Spegni gruppo",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"on\": false\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/groups/{{groupId}}/action"
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 Altre risorse",
+      "description": "Risorse lette in sola lettura, utili per conoscere la configurazione del gateway e preparare i rispettivi client.",
+      "item": [
+        {
+          "name": "Regole",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/rules",
+            "description": "`DCB-GTW-RUL`"
+          }
+        },
+        {
+          "name": "Programmazioni",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/schedules",
+            "description": "`DCB-GTW-SCH`"
+          }
+        },
+        {
+          "name": "Sistemi di allarme",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/alarmsystems",
+            "description": "`DCB-GTW-ALM`"
+          }
+        },
+        {
+          "name": "Resourcelinks",
+          "request": {
+            "method": "GET",
+            "url": "{{deconzUrl}}/api/{{deconzKey}}/resourcelinks",
+            "description": "`DCB-GTW-RLK`"
+          }
+        }
+      ]
+    }
+  ]
+}
