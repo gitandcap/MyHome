@@ -5,9 +5,9 @@ namespace DCB.Gateway.Core;
 /// </summary>
 /// <remarks>
 /// Il Gateway fa un solo tentativo e segnala il problema con questa eccezione: la ripetizione spetta a chi
-/// lo usa (in MyHome il bootstrap <c>DCB-BOT</c>, che apre la condizione "deCONZ non raggiungibile").
+/// lo usa (in MyHome il bootstrap <c>DCB-BOT</c>, che apre la condizione "deCONZ non raggiungibile" e riprova
+/// con attese crescenti; ANA-06 §4.2, PA-04).
 /// Caso tipico: deCONZ in locale parte solo dopo il login, il DCB (servizio) prima.
-/// Scelta provvisoria in attesa della chiusura di PA-04.
 /// </remarks>
 public sealed class DeconzUnreachableException : Exception
 {

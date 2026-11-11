@@ -123,3 +123,8 @@ API key ottenuta da Postman, porta WebSocket 443 confermata, cartelle di sola le
 | – | *(file modificati con l'editor)* `ANA-06-SintesiUnificata.md` (§4.2, §9), `ANA-07-FileJsonDCB.md` (§3.1), `PuntiApertiAnalisi.md`, `COD-02-GatewayConnector.md` | Decisioni su PA-04: ripetizioni in `DCB-BOT`, regole `sbs`, parametri `Bootstrap:*` delle attese; PA-04 chiuso. |
 | 62 | `git add -A` | Prepara per il commit i documenti aggiornati con le decisioni su PA-04. |
 | 63 | `git commit -m "Analisi: PA-04 chiuso (ripetizioni in DCB-BOT, regole sbs, attese)"` | Commit locale. |
+| 64 | `git push` | Invia a GitHub il commit precedente (eseguito da Andrea). |
+| – | *(file modificato con l'editor)* `DCB.Gateway\Core\DeconzUnreachableException.cs` | Commento aggiornato dopo la chiusura di PA-04 (non più scelta provvisoria). |
+| 65 | `dotnet build DCB.Gateway` | Compila la libreria dopo la modifica del commento (0 avvisi, 0 errori). |
+| 66 | `git add -A` | Prepara per il commit la correzione del commento. |
+| 67 | `git commit -m "Commento DeconzUnreachableException aggiornato dopo PA-04"` | Commit locale. |
