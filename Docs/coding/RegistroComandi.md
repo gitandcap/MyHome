@@ -84,4 +84,8 @@ API key ottenuta da Postman, porta WebSocket 443 confermata, cartelle di sola le
 | – | *(file creati/modificati con l'editor)* `Docs\analisi\PuntiApertiAnalisi.md`, `Docs\coding\PuntiApertiCoding.md`, `CLAUDE.md`, `Docs\analisi\RegistroDocumenti.md`, `Docs\analisi\ANA-03-SintesiUnificata.md` | Documenti permanenti dei punti aperti (analisi e coding), regole in `CLAUDE.md`, voci nel registro dei documenti, rimando in ANA-03 §9. |
 | 30 | `git mv Docs/coding/COD-01-RegistroComandi.md Docs/coding/RegistroComandi.md` | Rinomina questo registro a nome fisso: è un documento permanente. `git mv` conserva la storia del file. |
 | 31 | `git add -A` | Prepara per il commit tutte le modifiche (compresi i nuovi documenti dei punti aperti). |
-| 32 | `git commit -m "Documenti permanenti: punti aperti e registro comandi"` | Commit locale (non ancora inviato a GitHub). |
+| 32 | `git commit -m "Documenti permanenti: punti aperti e registro comandi"` | Commit locale. |
+| 33 | `git push` | Invia a GitHub il commit precedente (eseguito da Andrea). |
+| – | *(file creati/modificati con l'editor)* `Docs\coding\COD-02-GatewayConnector.md`, `Docs\analisi\PuntiApertiAnalisi.md`, `Docs\analisi\RegistroDocumenti.md` | Organizzazione e scelte tecniche di `DCB.Gateway` (COD-02), nuovi punti aperti PA-13…PA-17 e PA-04 ampliato, registrazione di COD-02. |
+| 34 | `git add -A` | Prepara per il commit le modifiche ai documenti. |
+| 35 | `git commit -m "COD-02 Gateway Connector: organizzazione, scelte tecniche e punti aperti"` | Commit locale. |

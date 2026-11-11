@@ -1,6 +1,6 @@
 # Registro dei documenti di MyHome
 
-**Aggiornato al:** 09/11/2026
+**Aggiornato al:** 11/11/2026
 **Stato:** registro permanente (come `Acronimi.md`, non segue la numerazione)
 
 ---
@@ -23,8 +23,8 @@ di creare una nuova versione invece di sovrascrivere la precedente.
 | `ANA-04-FileJsonDCB.md` | 07/11/2026 | attivo | Approfondimento sui file JSON `CFG`, `DBZ`, `MDZ` di `DCB-STO` | – (approfondisce ANA-03 §5) | Non sostituisce nulla: è un argomento nuovo |
 | `ANA-05-CanaleClientDCB.md` | 09/11/2026 | attivo | Canale verso i client di `DCB.Server`: REST (`DCB-API`) + SSE (`DCB-EVS`) al posto di SignalR | – (approfondisce ANA-03 §6) | Non sostituisce nulla: è una decisione nuova |
 | `Acronimi.md` | 07/11/2026 | registro permanente | Acronimi di componenti e sottomoduli | – (scorporato da ANA-03 §1) | – |
-| `RegistroDocumenti.md` | 09/11/2026 | registro permanente | Questo registro | – | – |
-| `PuntiApertiAnalisi.md` | 09/11/2026 | documento permanente | Punti di analisi aperti e chiusi, con ID `PA-nn` condivisi con `PuntiApertiCoding.md` | – | – |
+| `RegistroDocumenti.md` | 11/11/2026 | registro permanente | Questo registro | – | – |
+| `PuntiApertiAnalisi.md` | 11/11/2026 | documento permanente | Punti di analisi aperti e chiusi, con ID `PA-nn` condivisi con `PuntiApertiCoding.md` | – | – |
 
 **Nota sul 09/11/2026:** ANA-03 è stato aggiornato sovrascrivendolo, prima che esistesse la regola di salvataggio:
 passaggio da SignalR a REST + SSE ed eliminazione di `DCB-CLI` a favore della raccolta Postman `DCB-PMN`.
@@ -44,3 +44,4 @@ recuperabile, perché la cartella non è ancora un repository git.
 | --- | --- | --- | --- |
 | `RegistroComandi.md` | 09/11/2026 | documento permanente | Sequenza dei comandi eseguiti per costruire il progetto, con descrizione (era `COD-01-RegistroComandi.md`; il progressivo COD-01 non si riutilizza) |
 | `PuntiApertiCoding.md` | 09/11/2026 | documento permanente | Punti operativi di coding aperti e chiusi, con ID `PA-nn` condivisi con `PuntiApertiAnalisi.md` |
+| `COD-02-GatewayConnector.md` | 11/11/2026 | attivo | Organizzazione di `DCB.Gateway` (`DCB-GTW`) e scelte tecniche confermate; rimanda ai punti aperti PA-13…PA-17 |
