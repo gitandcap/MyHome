@@ -1,0 +1,637 @@
+{
+  "alarmsystems": {
+    "1": {
+      "config": {
+        "armed_away_entry_delay": 120,
+        "armed_away_exit_delay": 120,
+        "armed_away_trigger_duration": 120,
+        "armed_night_entry_delay": 120,
+        "armed_night_exit_delay": 120,
+        "armed_night_trigger_duration": 120,
+        "armed_stay_entry_delay": 120,
+        "armed_stay_exit_delay": 120,
+        "armed_stay_trigger_duration": 120,
+        "armmode": "disarmed",
+        "configured": false,
+        "disarmed_entry_delay": 0,
+        "disarmed_exit_delay": 0
+      },
+      "devices": {},
+      "name": "default",
+      "state": {
+        "armstate": "disarmed",
+        "seconds_remaining": 0
+      }
+    }
+  },
+  "config": {
+    "UTC": "2026-11-11T18:28:46",
+    "apiversion": "1.16.0",
+    "backup": {
+      "errorcode": 0,
+      "status": "idle"
+    },
+    "bridgeid": "00212EFFFF051A5C",
+    "datastoreversion": "93",
+    "devicename": "ConBee II",
+    "dhcp": true,
+    "disablePermitJoinAutoOff": false,
+    "factorynew": false,
+    "fwversion": "0x26490700",
+    "gateway": "192.168.1.1",
+    "internetservices": {
+      "internet": "connected",
+      "remoteaccess": "disconnected",
+      "swupdate": "connected",
+      "time": "connected"
+    },
+    "ipaddress": "192.168.1.37",
+    "lightlastseeninterval": 60,
+    "linkbutton": false,
+    "localtime": "2026-11-11T19:28:46",
+    "mac": "54:ae:bc:84:53:fe",
+    "modelid": "deCONZ",
+    "name": "Gateway",
+    "netmask": "255.255.255.0",
+    "networkopenduration": 180,
+    "panid": 63867,
+    "portalconnection": "disconnected",
+    "portalservices": false,
+    "portalstate": {
+      "communication": "disconnected",
+      "incoming": false,
+      "outgoing": false,
+      "signedon": false
+    },
+    "proxyaddress": "none",
+    "proxyport": 0,
+    "replacesbridgeid": null,
+    "rfconnected": true,
+    "starterkitid": "",
+    "swupdate": {
+      "checkforupdate": false,
+      "devicetypes": {
+        "bridge": false,
+        "lights": [],
+        "sensors": []
+      },
+      "notify": false,
+      "text": "",
+      "updatestate": 0,
+      "url": ""
+    },
+    "swupdate2": {
+      "autoinstall": {
+        "on": false,
+        "updatetime": ""
+      },
+      "bridge": {
+        "lastinstall": "2026-07-16T11:37:14",
+        "state": "noupdates"
+      },
+      "checkforupdate": false,
+      "lastchange": "",
+      "state": "noupdates"
+    },
+    "swversion": "2.33.2",
+    "timeformat": "24h",
+    "timezone": "",
+    "uuid": "0f663c5a-c024-4261-8866-1b71322031b5",
+    "websocketnotifyall": true,
+    "websocketport": 80,
+    "websocketport_wss": 443,
+    "zigbeechannel": 11
+  },
+  "groups": {
+    "1": {
+      "action": {
+        "alert": "none",
+        "bri": 127,
+        "colormode": "hs",
+        "ct": 0,
+        "effect": "none",
+        "hue": 0,
+        "on": false,
+        "sat": 127,
+        "scene": "",
+        "xy": [
+          0,
+          0
+        ]
+      },
+      "devicemembership": [],
+      "etag": "2743a7994741cbead757c5b55b8e0eac",
+      "id": "1",
+      "lights": [
+        "15"
+      ],
+      "name": "Phoscon_All_Off",
+      "scenes": [],
+      "state": {
+        "all_on": false,
+        "any_on": false
+      },
+      "type": "LightGroup"
+    }
+  },
+  "lights": {
+    "1": {
+      "capabilities": {
+        "sleeper": false
+      },
+      "config": {
+        "groups": [
+          "0"
+        ]
+      },
+      "etag": "e63052ffe2faaa69e798fbed9293b6aa",
+      "hascolor": false,
+      "lastannounced": "2026-01-14T18:59:08Z",
+      "lastseen": "2026-11-11T18:27Z",
+      "manufacturername": "Vimar",
+      "modelid": "Window_Cov_v1.0",
+      "name": "TapparellaSalotto",
+      "nwkaddress": "0xC126",
+      "state": {
+        "bri": 251,
+        "lift": 99,
+        "on": true,
+        "open": true,
+        "reachable": true
+      },
+      "swversion": "",
+      "type": "Window covering device",
+      "uniqueid": "f4:ce:36:23:f3:df:c4:63-0a"
+    },
+    "10": {
+      "capabilities": {
+        "sleeper": false
+      },
+      "config": {
+        "groups": [
+          "0"
+        ]
+      },
+      "etag": "b53bfc8acf574e9585d4fe10fd4044b3",
+      "hascolor": false,
+      "lastannounced": "2026-01-16T16:28:59Z",
+      "lastseen": "2026-11-11T18:27Z",
+      "manufacturername": "Vimar",
+      "modelid": "Window_Cov_v1.0",
+      "name": "TapparellaCucinaPorta",
+      "nwkaddress": "0x3D36",
+      "state": {
+        "bri": 241,
+        "lift": 95,
+        "on": true,
+        "open": true,
+        "reachable": true
+      },
+      "swversion": "",
+      "type": "Window covering device",
+      "uniqueid": "f4:ce:36:a9:19:62:54:7e-0a"
+    },
+    "15": {
+      "capabilities": {
+        "alerts": [
+          "none",
+          "select",
+          "lselect"
+        ],
+        "sleeper": false
+      },
+      "config": {
+        "groups": [
+          "0",
+          "1"
+        ]
+      },
+      "etag": "272cfb7d45c66b00ac94a1f578c5f9e9",
+      "hascolor": false,
+      "lastannounced": "2026-08-16T06:45:12Z",
+      "lastseen": "2026-08-16T07:17Z",
+      "manufacturername": "SONOFF",
+      "modelid": "01MINIZB",
+      "name": "ZBMiniOnOffContPulitoCancello",
+      "nwkaddress": "0x619B",
+      "state": {
+        "alert": "none",
+        "on": false,
+        "reachable": false
+      },
+      "swversion": "",
+      "type": "On/Off light",
+      "uniqueid": "b4:e3:f9:ff:fe:f9:6a:cd-01"
+    },
+    "2": {
+      "capabilities": {
+        "sleeper": false
+      },
+      "config": {
+        "groups": [
+          "0"
+        ]
+      },
+      "etag": "dbc4b14c8a67a36054bbe70de611005c",
+      "hascolor": false,
+      "lastannounced": "2026-08-19T18:50:47Z",
+      "lastseen": "2026-11-11T18:28Z",
+      "manufacturername": "Vimar",
+      "modelid": "Window_Cov_v1.0",
+      "name": "TapparellaCameraStudio",
+      "nwkaddress": "0xE22D",
+      "state": {
+        "bri": 243,
+        "lift": 96,
+        "on": true,
+        "open": true,
+        "reachable": true
+      },
+      "swversion": "",
+      "type": "Window covering device",
+      "uniqueid": "f4:ce:36:fe:e8:f1:cb:08-0a"
+    },
+    "3": {
+      "capabilities": {
+        "alerts": [
+          "none",
+          "select",
+          "lselect"
+        ],
+        "sleeper": false
+      },
+      "config": {
+        "groups": [
+          "0"
+        ]
+      },
+      "etag": "8e878bdc9a96c8fade1470b4e6ed1527",
+      "hascolor": false,
+      "lastannounced": "2026-01-14T18:59:10Z",
+      "lastseen": "2026-01-16T10:34Z",
+      "manufacturername": "LIDL Silvercrest",
+      "modelid": "HG06337",
+      "name": "PresaOnOffLIDLSilvercrest",
+      "nwkaddress": "0x64DD",
+      "state": {
+        "alert": "none",
+        "on": true,
+        "reachable": false
+      },
+      "swversion": "",
+      "type": "On/Off plug-in unit",
+      "uniqueid": "ec:1b:bd:ff:fe:ac:35:6f-0b"
+    },
+    "4": {
+      "capabilities": {
+        "alerts": [
+          "none",
+          "select",
+          "lselect"
+        ],
+        "sleeper": false
+      },
+      "config": {
+        "groups": []
+      },
+      "etag": "811e43c17e21bf1c973cc3ff3942a763",
+      "hascolor": false,
+      "lastannounced": "2026-01-16T10:32:00Z",
+      "lastseen": "2026-01-16T22:01Z",
+      "manufacturername": "OSRAM",
+      "modelid": "Plug 01",
+      "name": "PresaOnOffOsram",
+      "nwkaddress": "0x8CFE",
+      "state": {
+        "alert": "none",
+        "on": false,
+        "reachable": false
+      },
+      "swversion": "V1.05.09",
+      "type": "On/Off plug-in unit",
+      "uniqueid": "7c:b0:3e:aa:0a:08:11:2e-03"
+    },
+    "5": {
+      "capabilities": {
+        "sleeper": false
+      },
+      "config": {
+        "groups": [
+          "0"
+        ]
+      },
+      "etag": "0a2260d388cbc9e6c7b6cf8312beda72",
+      "hascolor": false,
+      "lastannounced": "2026-08-19T18:50:46Z",
+      "lastseen": "2026-11-11T18:27Z",
+      "manufacturername": "Vimar",
+      "modelid": "Window_Cov_v1.0",
+      "name": "TapparellaCameraMargherita",
+      "nwkaddress": "0xC8DD",
+      "state": {
+        "bri": 226,
+        "lift": 89,
+        "on": true,
+        "open": true,
+        "reachable": true
+      },
+      "swversion": "",
+      "type": "Window covering device",
+      "uniqueid": "f4:ce:36:21:18:17:83:a1-0a"
+    },
+    "6": {
+      "capabilities": {
+        "sleeper": false
+      },
+      "config": {
+        "groups": [
+          "0"
+        ]
+      },
+      "etag": "b63c056f5260965fe993b16b58a2d783",
+      "hascolor": false,
+      "lastannounced": "2026-01-16T15:43:02Z",
+      "lastseen": "2026-11-11T18:27Z",
+      "manufacturername": "Vimar",
+      "modelid": "Window_Cov_v1.0",
+      "name": "TapparellaBagnoNotte",
+      "nwkaddress": "0x3D14",
+      "state": {
+        "bri": 241,
+        "lift": 95,
+        "on": true,
+        "open": true,
+        "reachable": true
+      },
+      "swversion": "",
+      "type": "Window covering device",
+      "uniqueid": "f4:ce:36:88:0b:e6:39:a3-0a"
+    },
+    "7": {
+      "capabilities": {
+        "sleeper": false
+      },
+      "config": {
+        "groups": [
+          "0"
+        ]
+      },
+      "etag": "0c5979749caa09c647da75e4ae7b08ac",
+      "hascolor": false,
+      "lastannounced": "2026-01-16T15:43:06Z",
+      "lastseen": "2026-11-11T18:27Z",
+      "manufacturername": "Vimar",
+      "modelid": "Window_Cov_v1.0",
+      "name": "TapparellaCameraMatrimoniale",
+      "nwkaddress": "0x9B4C",
+      "state": {
+        "bri": 231,
+        "lift": 91,
+        "on": true,
+        "open": true,
+        "reachable": true
+      },
+      "swversion": "",
+      "type": "Window covering device",
+      "uniqueid": "f4:ce:36:39:3a:a7:c9:b0-0a"
+    },
+    "8": {
+      "capabilities": {
+        "sleeper": false
+      },
+      "config": {
+        "groups": [
+          "0"
+        ]
+      },
+      "etag": "272cfb7d45c66b00ac94a1f578c5f9e9",
+      "hascolor": false,
+      "lastannounced": "2026-01-16T15:59:46Z",
+      "lastseen": "2026-11-11T18:27Z",
+      "manufacturername": "Vimar",
+      "modelid": "Window_Cov_v1.0",
+      "name": "TapparellaCucinaStrada",
+      "nwkaddress": "0x57BB",
+      "state": {
+        "bri": 238,
+        "lift": 94,
+        "on": true,
+        "open": true,
+        "reachable": true
+      },
+      "swversion": "",
+      "type": "Window covering device",
+      "uniqueid": "f4:ce:36:1d:9f:6f:2f:ef-0a"
+    },
+    "9": {
+      "capabilities": {
+        "sleeper": false
+      },
+      "config": {
+        "groups": [
+          "0"
+        ]
+      },
+      "etag": "84e5776a89d8a0ac9bc26c33d1110a29",
+      "hascolor": false,
+      "lastannounced": "2026-01-16T16:21:58Z",
+      "lastseen": "2026-11-11T18:28Z",
+      "manufacturername": "Vimar",
+      "modelid": "Window_Cov_v1.0",
+      "name": "TapparellaCucinaPiccola",
+      "nwkaddress": "0xF08C",
+      "state": {
+        "bri": 246,
+        "lift": 97,
+        "on": true,
+        "open": true,
+        "reachable": true
+      },
+      "swversion": "",
+      "type": "Window covering device",
+      "uniqueid": "f4:ce:36:d3:99:f7:2f:83-0a"
+    }
+  },
+  "resourcelinks": {
+    "1": {
+      "classid": 20204,
+      "description": "Segment /sensors/3 to  /sensors/5",
+      "links": [
+        "/sensors/3",
+        "/sensors/5"
+      ],
+      "name": "-49bb903c",
+      "owner": "A51FE007F6",
+      "recycle": false,
+      "type": "Link"
+    },
+    "2": {
+      "classid": 20203,
+      "description": "Segment /sensors/2 to  /sensors/3",
+      "links": [
+        "/sensors/2",
+        "/sensors/3"
+      ],
+      "name": "9d407ff",
+      "owner": "A51FE007F6",
+      "recycle": false,
+      "type": "Link"
+    },
+    "3": {
+      "classid": 20202,
+      "description": "Segment /sensors/4 to  /sensors/2",
+      "links": [
+        "/sensors/4",
+        "/sensors/2"
+      ],
+      "name": "7c2f778d",
+      "owner": "A51FE007F6",
+      "recycle": false,
+      "type": "Link"
+    },
+    "4": {
+      "classid": 20201,
+      "description": "Segment /sensors/5 to  /sensors/4",
+      "links": [
+        "/sensors/5",
+        "/sensors/4"
+      ],
+      "name": "27a891e2",
+      "owner": "A51FE007F6",
+      "recycle": false,
+      "type": "Link"
+    }
+  },
+  "rules": {},
+  "scenes": {},
+  "schedules": {},
+  "sensors": {
+    "1": {
+      "config": {
+        "configured": true,
+        "on": true,
+        "sunriseoffset": 30,
+        "sunsetoffset": -30
+      },
+      "etag": "23b978a7bef8bde5f6fe93b061831115",
+      "manufacturername": "Philips",
+      "modelid": "PHDL00",
+      "name": "Daylight",
+      "state": {
+        "dark": true,
+        "daylight": false,
+        "lastupdated": "2026-11-11T18:21:27.822",
+        "status": 230,
+        "sunrise": "2026-11-11T05:59:37",
+        "sunset": "2026-11-11T15:40:54"
+      },
+      "swversion": "1.0",
+      "type": "Daylight",
+      "uniqueid": "00:21:2e:ff:ff:05:1a:5c-01"
+    },
+    "2": {
+      "config": {
+        "mode": "sunset",
+        "offset": 0,
+        "on": true,
+        "reachable": true
+      },
+      "etag": "b4cfd889faf8038037489fe3fe4c009f",
+      "manufacturername": "Phoscon",
+      "modelid": "DLOFFSET1220",
+      "name": "Offset Ref P-SS",
+      "state": {
+        "lastupdated": "2026-11-11T18:21:27.822",
+        "localtime": "2026-11-11T16:40:54"
+      },
+      "swversion": "1.0",
+      "type": "CLIPDaylightOffset",
+      "uniqueid": "93:FB:F3:93-04C8-472C-847D-69:D4:C4:40:AE:47"
+    },
+    "3": {
+      "config": {
+        "mode": "sunset",
+        "offset": 273,
+        "on": true,
+        "reachable": true
+      },
+      "etag": "c119e5e291436894718232fa2cc4a72d",
+      "manufacturername": "Phoscon",
+      "modelid": "DLOFFSET1110",
+      "name": "Offset Ref P2012",
+      "state": {
+        "lastupdated": "2026-11-11T18:21:57.822",
+        "localtime": "2026-11-11T21:13:54"
+      },
+      "swversion": "1.0",
+      "type": "CLIPDaylightOffset",
+      "uniqueid": "FD:EA:16:5C-ECAE-391E-BB71-A0:C6:0F:9A:0D:BF"
+    },
+    "4": {
+      "config": {
+        "mode": "sunset",
+        "offset": -286,
+        "on": true,
+        "reachable": true
+      },
+      "etag": "0177d25c4143e5d225fd18c00afd3578",
+      "manufacturername": "Phoscon",
+      "modelid": "DLOFFSET2222",
+      "name": "Offset Ref P2100",
+      "state": {
+        "lastupdated": "2026-11-11T18:21:37.820",
+        "localtime": "2026-11-11T11:54:54"
+      },
+      "swversion": "1.0",
+      "type": "CLIPDaylightOffset",
+      "uniqueid": "A4:88:2D:0D-7EC2-B8E6-A3C1-87:BA:C1:E0:5D:66"
+    },
+    "5": {
+      "config": {
+        "mode": "sunrise",
+        "offset": 0,
+        "on": true,
+        "reachable": true
+      },
+      "etag": "bb3ec02661cad8f3177b41ce8d4cf341",
+      "manufacturername": "Phoscon",
+      "modelid": "DLOFFSET2202",
+      "name": "Offset Ref P-SR",
+      "state": {
+        "lastupdated": "2026-11-11T18:22:07.830",
+        "localtime": "2026-11-11T06:59:37"
+      },
+      "swversion": "1.0",
+      "type": "CLIPDaylightOffset",
+      "uniqueid": "CF:E7:B1:DF-65B8-B10B-94CC-EC:B6:1C:59:0D:A8"
+    },
+    "6": {
+      "capabilities": {
+        "sleeper": true
+      },
+      "config": {
+        "alert": "none",
+        "battery": 20,
+        "on": true,
+        "reachable": true
+      },
+      "ep": 1,
+      "etag": "c3887522000bd92c083c3d135c4e6fa1",
+      "lastannounced": "2026-01-14T20:32:52Z",
+      "lastseen": "2026-11-09T21:17Z",
+      "manufacturername": "IKEA of Sweden",
+      "mode": 1,
+      "modelid": "Remote Control N2",
+      "name": "Switch 6",
+      "nwkaddress": "0x256F",
+      "productid": "E2001",
+      "state": {
+        "buttonevent": 0,
+        "lastupdated": "none"
+      },
+      "swversion": "1.0.024",
+      "type": "ZHASwitch",
+      "uniqueid": "cc:86:ec:ff:fe:8c:d8:ba-01-1000"
+    }
+  }
+}

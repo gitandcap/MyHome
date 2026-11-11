@@ -2,7 +2,7 @@
 
 MyHome è un sistema domotico: C# / .NET 10, Visual Studio Community, mini PC Windows 11 con Docker Desktop (WSL2),
 dispositivi Zigbee gestiti da deCONZ + ConBee II in container. Dettagli in `Docs\base` e `Docs\analisi`
-(riferimento attuale: `Docs\analisi\ANA-03-SintesiUnificata.md`).
+(riferimento attuale: `Docs\analisi\ANA-06-SintesiUnificata.md`).
 
 ## Avvio di ogni sessione
 - Salutami con una massima del giorno divertente.

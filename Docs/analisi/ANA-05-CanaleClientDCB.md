@@ -1,7 +1,7 @@
 # ANA-05 – Canale client di DCB.Server (REST + SSE)
 
 **Data:** 09/11/2026
-**Fonti:** sessione di analisi del 09/11/2026, ANA-03 §4.6 e §6
+**Fonti:** sessione di analisi del 09/11/2026, ANA-03 §4.6 e §6 (ora ANA-06)
 **Stato:** decisione presa; sostituisce l'hub SignalR (`DCB-HUB`) previsto in ANA-03
 
 ---
@@ -43,7 +43,7 @@ DCB.Server ──(metodi, stesso processo)──▶ DCB.Gateway ──(REST/WS)�
 
 - Applicazione ASP.NET Core già ospitata da `DCB-SVC`, con *minimal API* o controller (scelta in fase di coding).
 - Documentazione OpenAPI generata automaticamente, con Swagger UI disponibile in debug. Il file OpenAPI si può
-  importare in Postman come base della raccolta `MyHome-DCB` (`DCB-PMN`, ANA-03 §8).
+  importare in Postman come base della raccolta `MyHome-DCB` (`DCB-PMN`, ANA-06 §8).
 - Risorse indicative (elenco dettagliato da definire):
 
 | Ambito | Esempio | Sostituisce (TCL) |
@@ -56,17 +56,17 @@ DCB.Server ──(metodi, stesso processo)──▶ DCB.Gateway ──(REST/WS)�
 | Dispositivi e comandi | `GET /api/devices`, `POST /api/devices/{code}/commands` | – (uso HSPA) |
 
 - I DTO di richieste e risposte stanno in `MyHome.Shared` (`SHR-CTR`, `SHR-MOD`): i client non dipendono dal formato
-  dei dati di deCONZ (come già previsto in ANA-03 §4.5).
+  dei dati di deCONZ (come già previsto in ANA-06 §4.5).
 - Errori in formato standard *Problem Details* (RFC 9457).
 
 ## 5. Flusso eventi (`DCB-EVS`, nuovo)
 
 - Endpoint `GET /api/events` con risposta `text/event-stream`, che resta aperto.
 - **Una connessione SSE = una sessione.** All'apertura il server assegna un ID di sessione e lo invia come primo
-  evento. Le sottoscrizioni (§4) sono legate a quell'ID. Sostituisce il Connection ID di SignalR (ANA-03 §6).
+  evento. Le sottoscrizioni (§4) sono legate a quell'ID. Sostituisce il Connection ID di SignalR (ANA-06 §6).
 - Formato di ogni evento: campo `event` = topic, campo `data` = `DcbEventDto` in JSON (`SHR-EVT`), campo `id` = progressivo.
 - **Stato attuale all'apertura**: subito dopo l'ID di sessione vengono inviate le condizioni aperte, come previsto per la
-  connessione di una nuova TCL (ANA-03 §6).
+  connessione di una nuova TCL (ANA-06 §6).
 - **Lazy event emission** invariata: `DCB-EVD` crea un evento solo se almeno una sessione è sottoscritta al topic.
   Gli eventi persistenti vengono creati sempre.
 - **Riconnessione**: il client si riconnette in automatico (comportamento standard SSE) inviando `Last-Event-ID`.
@@ -76,7 +76,7 @@ DCB.Server ──(metodi, stesso processo)──▶ DCB.Gateway ──(REST/WS)�
 
 ## 6. Sicurezza
 
-- La **chiave condivisa** in `CFG` resta: viaggia nell'header `X-Api-Key`, sia per REST sia per SSE.
+- La **chiave condivisa** in `CFG` (`Tcl:SharedKey`, ANA-07 §3) resta: viaggia nell'header `X-Api-Key`, sia per REST sia per SSE.
 - Una richiesta senza chiave o con chiave errata riceve `401`.
 
 ## 7. Impatti sugli acronimi
@@ -99,5 +99,5 @@ DCB.Server ──(metodi, stesso processo)──▶ DCB.Gateway ──(REST/WS)�
    Possibili soluzioni: leggere SSE tramite `fetch`, usare un token temporaneo nella query string ottenuto via REST,
    oppure un cookie. Da decidere con la HSPA.
 2. **HTTPS**: oggi solo rete locale. Da valutare prima di esporre il servizio fuori casa o usare HSPA da remoto.
-3. **Elenco dettagliato degli endpoint** e dei topic degli eventi (collegato ad ANA-03 §9, "topic e categorie degli eventi").
-4. Porta di ascolto di `DCB.Server`: da aggiungere ai parametri di `CFG` (ANA-04).
+3. **Elenco dettagliato degli endpoint** e dei topic degli eventi (collegato a PA-05, "topic e categorie degli eventi").
+4. Porta di ascolto di `DCB.Server`: configurazione Kestrel in `appsettings.json`, sovrascrivibile in `cfg.json` (ANA-07 §3.1, decisione dell'11/11/2026); resta da scegliere il valore (PA-07).

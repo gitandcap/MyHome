@@ -89,3 +89,20 @@ API key ottenuta da Postman, porta WebSocket 443 confermata, cartelle di sola le
 | – | *(file creati/modificati con l'editor)* `Docs\coding\COD-02-GatewayConnector.md`, `Docs\analisi\PuntiApertiAnalisi.md`, `Docs\analisi\RegistroDocumenti.md` | Organizzazione e scelte tecniche di `DCB.Gateway` (COD-02), nuovi punti aperti PA-13…PA-17 e PA-04 ampliato, registrazione di COD-02. |
 | 34 | `git add -A` | Prepara per il commit le modifiche ai documenti. |
 | 35 | `git commit -m "COD-02 Gateway Connector: organizzazione, scelte tecniche e punti aperti"` | Commit locale. |
+| 36 | `git push` | Invia a GitHub il commit precedente (eseguito da Andrea). |
+| 37 | `git mv Docs/analisi/ANA-03-SintesiUnificata.md Docs/analisi/storico/` | Sposta ANA-03 nello storico: sostituito da ANA-06 (modifiche importanti dell'11/11/2026). |
+| 38 | `git mv Docs/analisi/ANA-04-FileJsonDCB.md Docs/analisi/storico/` | Sposta ANA-04 nello storico: sostituito da ANA-07. |
+| 39 | `cp storico/ANA-03-SintesiUnificata.md ANA-06-SintesiUnificata.md` | Crea ANA-06 partendo dal testo di ANA-03 (eseguito in `Docs\analisi`). |
+| 40 | `cp storico/ANA-04-FileJsonDCB.md ANA-07-FileJsonDCB.md` | Crea ANA-07 partendo dal testo di ANA-04 (eseguito in `Docs\analisi`). |
+| – | *(file creati/modificati con l'editor)* `ANA-06-SintesiUnificata.md`, `ANA-07-FileJsonDCB.md`, `ANA-05-CanaleClientDCB.md`, `Acronimi.md`, `PuntiApertiAnalisi.md`, `RegistroDocumenti.md`, `Docs\coding\COD-02-GatewayConnector.md`, `CLAUDE.md` | Decisioni su PA-04 (sequenza), PA-13…PA-17: nuovi `DCB-SYN`, `DCB-GTW-FUL`, `KEY`; punti chiusi; rimandi da ANA-03/ANA-04 ad ANA-06/ANA-07. |
+| 41 | `dotnet add DCB.Gateway package Microsoft.Extensions.Http` (e `Microsoft.Extensions.Options`, `Microsoft.Extensions.Logging.Abstractions`); `dotnet add DCB.Gateway.Tests package Microsoft.Extensions.TimeProvider.Testing` | Primo inserimento dei pacchetti di GTW e dei test: senza versione NuGet ha scelto la 11.0.0 (.NET 11), sostituita al comando successivo. |
+| 42 | `dotnet add DCB.Gateway package <pacchetto> --version 10.0.15` (per i tre pacchetti di GTW) | Allinea i pacchetti `Microsoft.Extensions.*` di GTW a .NET 10 LTS, come il resto della solution. |
+| 43 | `dotnet add DCB.Gateway.Tests package Microsoft.Extensions.TimeProvider.Testing --version 10.11.0` | `FakeTimeProvider` per i test; il pacchetto ha una numerazione propria (repository dotnet/extensions), la 10.0.15 non esiste. |
+| – | *(file creati/modificati con l'editor)* `DCB.Gateway\**` (Configuration, Abstractions, Core, Clients\Config, Authentication, Dto, DependencyInjection), `DCB.Gateway.csproj` (`InternalsVisibleTo`), `DCB.Gateway.Tests\**` | Incremento 1 di GTW (COD-02): base REST, `DCB-GTW-CFG`, `DCB-GTW-AUT`, registrazione e test. |
+| 44 | `dotnet build DCB.Gateway` | Compila la libreria (0 avvisi, 0 errori). |
+| 45 | `dotnet test` | Esegue i test della solution: 21 superati. |
+| 46 | *(PowerShell)* lettura di `%USERPROFILE%\Downloads\deconz-full-state.json` con `System.Text.Json.Nodes`, rimozione di `config.whitelist`, scrittura in `DCB.Gateway.Tests\TestData\Deconz\full-state.json` | Copia nel repository dello stato completo reale salvato da Postman, senza le API key della whitelist (PA-01). |
+| – | *(file creati/modificati con l'editor)* `DCB.Gateway\Dto\**`, `DCB.Gateway\Clients\FullState\**`, `ServiceCollectionExtensions.cs`, `DCB.Gateway.Tests\**`, `DCB.Gateway.Tests.csproj` (copia dei file JSON di prova) | Incremento 2 di GTW: `DCB-GTW-FUL`, DTO di luci, sensori e gruppi, test sui dati reali. |
+| 47 | `dotnet test` | Esegue i test: 27 superati. |
+| 48 | `git add -A` | Prepara per il commit documenti di analisi (ANA-06, ANA-07) e incrementi 1-2 di GTW. |
+| 49 | `git commit -m "GTW incrementi 1-2 (base, CFG, AUT, FUL) e analisi ANA-06/ANA-07"` | Commit locale. |

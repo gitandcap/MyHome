@@ -19,10 +19,12 @@ di creare una nuova versione invece di sovrascrivere la precedente.
 | --- | --- | --- | --- | --- | --- |
 | `storico\ANA-01-AnalisiGemini.md` | prima del 07/11/2026 | storico | Prima analisi fatta con Gemini (ex `AnalisiMyHomeConGemini.md`): progetto ancora chiamato DCC, .NET 8/9, prima tabella degli acronimi | – | – (documento iniziale) |
 | `storico\ANA-02-SintesiArchitetturaDCC.md` | prima del 07/11/2026 | storico | Sintesi architetturale DCC fatta con Gemini: solution, TCL remote multiple, deCONZ in container | – | – (documento iniziale, parallelo ad ANA-01) |
-| `ANA-03-SintesiUnificata.md` | 07/11/2026 | **riferimento attuale** | Sintesi unificata di MyHome: componenti, solution, DCB, storage, eventi, TCL, test, questioni aperte | ANA-01, ANA-02 | Le due fonti erano distinte e in parte in conflitto (nome DCC, .NET 8/9, struttura diversa): serviva un unico documento nuovo che le fondesse e le allineasse a MyHome e .NET 10 |
-| `ANA-04-FileJsonDCB.md` | 07/11/2026 | attivo | Approfondimento sui file JSON `CFG`, `DBZ`, `MDZ` di `DCB-STO` | – (approfondisce ANA-03 §5) | Non sostituisce nulla: è un argomento nuovo |
-| `ANA-05-CanaleClientDCB.md` | 09/11/2026 | attivo | Canale verso i client di `DCB.Server`: REST (`DCB-API`) + SSE (`DCB-EVS`) al posto di SignalR | – (approfondisce ANA-03 §6) | Non sostituisce nulla: è una decisione nuova |
-| `Acronimi.md` | 07/11/2026 | registro permanente | Acronimi di componenti e sottomoduli | – (scorporato da ANA-03 §1) | – |
+| `storico\ANA-03-SintesiUnificata.md` | 07/11/2026 | storico (dall'11/11/2026) | Sintesi unificata di MyHome: componenti, solution, DCB, storage, eventi, TCL, test, questioni aperte | ANA-01, ANA-02 | Le due fonti erano distinte e in parte in conflitto (nome DCC, .NET 8/9, struttura diversa): serviva un unico documento nuovo che le fondesse e le allineasse a MyHome e .NET 10 |
+| `storico\ANA-04-FileJsonDCB.md` | 07/11/2026 | storico (dall'11/11/2026) | Approfondimento sui file JSON `CFG`, `DBZ`, `MDZ` di `DCB-STO` | – (approfondisce ANA-03 §5) | Non sostituisce nulla: è un argomento nuovo |
+| `ANA-05-CanaleClientDCB.md` | 09/11/2026 | attivo | Canale verso i client di `DCB.Server`: REST (`DCB-API`) + SSE (`DCB-EVS`) al posto di SignalR | – (approfondisce ANA-03 §6, ora ANA-06) | Non sostituisce nulla: è una decisione nuova |
+| `ANA-06-SintesiUnificata.md` | 11/11/2026 | **riferimento attuale** | Sintesi unificata di MyHome, aggiornata con le decisioni dell'11/11/2026: sequenza di bootstrap, `DCB-SYN`, `DCB-GTW-FUL`, DTO delle richieste, prima versione di `GTW`, parametri (`appsettings.json` + `CFG` + `KEY`), prossimi passi riallineati | ANA-03 | Modifiche **importanti** confermate da Andrea l'11/11/2026: due sottomoduli nuovi (`DCB-SYN`, `DCB-GTW-FUL`), compiti spostati da `DCB-GTW-WSS` a `DCB-SYN`, nuova collocazione dei parametri con un file in più (PA-13, PA-14, PA-17) |
+| `ANA-07-FileJsonDCB.md` | 11/11/2026 | attivo | File JSON del DCB: `appsettings.json` e `CFG` per i parametri, nuovo `KEY` (`apikey.json`) per l'API key, `DBZ` e `MDZ` | ANA-04 | Modifica **importante** confermata da Andrea l'11/11/2026: cambia la struttura dello storage (`CFG` ridotto alle differenze locali, parametri in `appsettings.json`, nuovo file `KEY`) e chi aggiorna `DBZ` (`DCB-SYN`) (PA-17, PA-13) |
+| `Acronimi.md` | 11/11/2026 | registro permanente | Acronimi di componenti e sottomoduli | – (scorporato da ANA-03 §1) | – |
 | `RegistroDocumenti.md` | 11/11/2026 | registro permanente | Questo registro | – | – |
 | `PuntiApertiAnalisi.md` | 11/11/2026 | documento permanente | Punti di analisi aperti e chiusi, con ID `PA-nn` condivisi con `PuntiApertiCoding.md` | – | – |
 
@@ -44,4 +46,4 @@ recuperabile, perché la cartella non è ancora un repository git.
 | --- | --- | --- | --- |
 | `RegistroComandi.md` | 09/11/2026 | documento permanente | Sequenza dei comandi eseguiti per costruire il progetto, con descrizione (era `COD-01-RegistroComandi.md`; il progressivo COD-01 non si riutilizza) |
 | `PuntiApertiCoding.md` | 09/11/2026 | documento permanente | Punti operativi di coding aperti e chiusi, con ID `PA-nn` condivisi con `PuntiApertiAnalisi.md` |
-| `COD-02-GatewayConnector.md` | 11/11/2026 | attivo | Organizzazione di `DCB.Gateway` (`DCB-GTW`) e scelte tecniche confermate; rimanda ai punti aperti PA-13…PA-17 |
+| `COD-02-GatewayConnector.md` | 11/11/2026 | attivo | Organizzazione di `DCB.Gateway` (`DCB-GTW`), scelte tecniche e incrementi di sviluppo; aggiornato (sovrascritto) con le decisioni su PA-13…PA-17 |
