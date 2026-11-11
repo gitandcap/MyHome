@@ -19,9 +19,10 @@ dispositivi Zigbee gestiti da deCONZ + ConBee II in container. Dettagli in `Docs
 3. **Altro**: da valutare di volta in volta.
 
 ## Registro dei comandi (modalità coding)
-- Ogni comando eseguito per il progetto (solution, progetti, pacchetti, git, strumenti…) va aggiunto in ordine
+- Ogni comando eseguito per il progetto (solution, progetti, pacchetti, strumenti…) va aggiunto in ordine
   in `Docs\coding\RegistroComandi.md`, con una breve descrizione.
-- Non vanno registrati i comandi di sola consultazione (versioni, stato, elenchi).
+- Non vanno registrati i comandi di sola consultazione (versioni, stato, elenchi) né quelli di versionamento
+  (`git add`, `commit`, `push`, `mv`…): la loro storia è già in git.
 
 ## Punti aperti (modalità analisi e coding)
 - Due documenti vivi, da aggiornare ogni volta che un punto si apre, cambia o si chiude:
