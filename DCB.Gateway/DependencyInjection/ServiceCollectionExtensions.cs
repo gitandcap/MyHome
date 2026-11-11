@@ -1,6 +1,10 @@
 using DCB.Gateway.Authentication;
 using DCB.Gateway.Clients.Config;
 using DCB.Gateway.Clients.FullState;
+using DCB.Gateway.Clients.Groups;
+using DCB.Gateway.Clients.Lights;
+using DCB.Gateway.Clients.Scenes;
+using DCB.Gateway.Clients.Sensors;
 using DCB.Gateway.Configuration;
 using DCB.Gateway.Core;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,6 +48,10 @@ public static class ServiceCollectionExtensions
         services.TryAddSingleton<DeconzRestClient>();
         services.TryAddSingleton<IConfigClient, ConfigClient>();
         services.TryAddSingleton<IFullStateClient, FullStateClient>();
+        services.TryAddSingleton<ILightsClient, LightsClient>();
+        services.TryAddSingleton<ISensorsClient, SensorsClient>();
+        services.TryAddSingleton<IGroupsClient, GroupsClient>();
+        services.TryAddSingleton<IScenesClient, ScenesClient>();
         services.TryAddSingleton<IDeconzAuthenticator, DeconzAuthenticator>();
 
         return services;

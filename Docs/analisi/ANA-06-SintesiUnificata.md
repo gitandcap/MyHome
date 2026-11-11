@@ -139,7 +139,8 @@ MyHome.sln
   - deCONZ applica ogni campo presente nel corpo: tutte le proprietà sono *nullable* e i campi `null` non vengono
     serializzati (`JsonIgnoreCondition.WhenWritingNull`), così si inviano solo i campi valorizzati;
   - `DeconzLightStateRequestDto` (campi comuni a luci e gruppi: `on`, `bri`, `hue`, `sat`, `ct`, `xy`, `alert`,
-    `effect`, `transitiontime`…) → `DeconzGroupActionRequestDto` eredita e aggiunge `toggle`;
+    `effect`, `transitiontime`; per le tapparelle `lift`, `open`, `stop`, aggiunti l'11/11/2026) →
+    `DeconzGroupActionRequestDto` eredita e aggiunge `toggle`;
   - `DeconzSensorConfigRequestDto` basato su un dizionario di campi (variano con il tipo di sensore); un DTO
     tipizzato per le valvole TRV si aggiungerà con la loro mappatura in `MDZ`;
   - comandi senza corpo (es. richiamo di una scena): solo un metodo del client, senza DTO;

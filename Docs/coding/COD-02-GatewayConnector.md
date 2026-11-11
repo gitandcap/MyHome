@@ -93,7 +93,7 @@ schema e sono rinviati (PA-16, ANA-06 §4.6). Ordine di sviluppo della prima ver
 | --- | --- | --- |
 | 1 – base, `CFG`, `AUT` | **completato l'11/11/2026** | 21 test superati, build senza avvisi |
 | 2 – `FUL` | **completato l'11/11/2026** | 27 test superati (totale), con lo stato completo reale dell'impianto |
-| 3 – comandi `LIG`, `SEN`, `GRP`, `SCN` | da fare | |
+| 3 – comandi `LIG`, `SEN`, `GRP`, `SCN` | **completato l'11/11/2026** | 37 test superati (totale) |
 | 4 – `WSS` | da fare | |
 
 **Dettagli dell'incremento 1** (oltre a quanto previsto al §2):
@@ -122,3 +122,13 @@ schema e sono rinviati (PA-16, ANA-06 §4.6). Ordine di sviluppo della prima ver
   di output dei test.
 - Scoperte dai dati reali: le tapparelle Vimar sono risorse `lights` di tipo `Window covering device` (comandi da
   prevedere nell'incremento 3: `lift`, `open`, `stop`); la porta WebSocket non cifrata è 80, non 443 (PA-19).
+
+**Dettagli dell'incremento 3**:
+- Client `ILightsClient`, `ISensorsClient`, `IGroupsClient` (elenco, dettaglio, comando) e `IScenesClient`
+  (solo richiamo, `PUT` senza corpo), registrati in `AddDeconzGateway`.
+- `DeconzLightStateRequestDto` comprende anche i comandi delle tapparelle `lift`, `open` e `stop`
+  (approvati l'11/11/2026); `DeconzGroupActionRequestDto` eredita e aggiunge `toggle`; `DeconzSensorConfigRequestDto`
+  è un dizionario con `Set(nome, valore)`, i cui campi compaiono al primo livello del JSON.
+- `DeconzCommandResult` (`Applied`: indirizzo → valore, `Errors`, `IsFullySuccessful`): un comando applicato in parte
+  restituisce il risultato misto; un comando rifiutato del tutto solleva `DeconzApiException`.
+- `DeconzResourcePath` codifica gli id nei percorsi: un id come `1/../config` non può indirizzare un'altra risorsa.

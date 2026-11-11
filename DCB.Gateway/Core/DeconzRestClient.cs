@@ -50,11 +50,19 @@ internal sealed class DeconzRestClient
     /// <param name="cancellationToken">Annullamento dell'operazione.</param>
     public async Task<T> GetAsync<T>(string resource, CancellationToken cancellationToken)
     {
-        string apiKey = _apiKeyHolder.ApiKey
-            ?? throw new InvalidOperationException("API key non disponibile: eseguire prima l'autenticazione (DCB-GTW-AUT).");
-
-        JsonElement root = await SendAsync(HttpMethod.Get, apiKey, resource, body: null, cancellationToken);
+        JsonElement root = await SendAsync(HttpMethod.Get, RequireApiKey(), resource, body: null, cancellationToken);
         return Deserialize<T>(root);
+    }
+
+    /// <summary>Invia un comando a una risorsa protetta: <c>PUT /api/{key}/{resource}</c>.</summary>
+    /// <param name="resource">Percorso dopo la chiave (es. <c>lights/3/state</c>).</param>
+    /// <param name="body">Corpo del comando; <c>null</c> per i comandi senza corpo (es. richiamo di una scena).</param>
+    /// <param name="cancellationToken">Annullamento dell'operazione.</param>
+    /// <returns>Campi applicati e campi rifiutati; se deCONZ li rifiuta tutti viene sollevata <see cref="DeconzApiException"/>.</returns>
+    public async Task<DeconzCommandResult> PutAsync(string resource, object? body, CancellationToken cancellationToken)
+    {
+        JsonElement root = await SendAsync(HttpMethod.Put, RequireApiKey(), resource, body, cancellationToken);
+        return DeconzCommandResult.FromResponseItems(DeconzErrorReader.ReadResponseItems(root));
     }
 
     /// <summary>Legge una risorsa pubblica, senza chiave: <c>GET /api/{resource}</c>.</summary>
@@ -81,6 +89,10 @@ internal sealed class DeconzRestClient
             .Select(item => item.Success!.Value)
             .ToList();
     }
+
+    private string RequireApiKey() =>
+        _apiKeyHolder.ApiKey
+            ?? throw new InvalidOperationException("API key non disponibile: eseguire prima l'autenticazione (DCB-GTW-AUT).");
 
     private async Task<JsonElement> SendAsync(
         HttpMethod method, string? apiKey, string resource, object? body, CancellationToken cancellationToken)
@@ -142,7 +154,7 @@ internal sealed class DeconzRestClient
         bool hasSuccess = items.Any(item => item.Success is not null);
 
         // Una risposta con soli errori è un fallimento anche se il codice HTTP è 2xx.
-        // Le risposte miste (successi + errori) dei comandi PUT saranno gestite da DeconzCommandResult (incremento 3).
+        // Le risposte miste (successi + errori) dei comandi PUT non sono un fallimento: le riporta DeconzCommandResult.
         if (errors.Count > 0 && !hasSuccess)
         {
             _logger.LogWarning("deCONZ {Method} {Path}: {Errors}", method, pathForLog, string.Join(" | ", errors));

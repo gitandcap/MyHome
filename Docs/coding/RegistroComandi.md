@@ -106,3 +106,9 @@ API key ottenuta da Postman, porta WebSocket 443 confermata, cartelle di sola le
 | 47 | `dotnet test` | Esegue i test: 27 superati. |
 | 48 | `git add -A` | Prepara per il commit documenti di analisi (ANA-06, ANA-07) e incrementi 1-2 di GTW. |
 | 49 | `git commit -m "GTW incrementi 1-2 (base, CFG, AUT, FUL) e analisi ANA-06/ANA-07"` | Commit locale. |
+| 50 | `git push` | Invia a GitHub il commit precedente (eseguito da Andrea). |
+| – | *(file creati/modificati con l'editor)* `DCB.Gateway\Clients\{Lights,Sensors,Groups,Scenes}\**`, `DCB.Gateway\Core\{DeconzCommandResult,DeconzResourcePath,DeconzRestClient}.cs`, `DCB.Gateway\Dto\**\*RequestDto.cs`, `ServiceCollectionExtensions.cs`, `DCB.Gateway.Tests\**` | Incremento 3 di GTW: comandi di `LIG`, `SEN`, `GRP`, `SCN`, esito `DeconzCommandResult`, test. |
+| 51 | `dotnet build DCB.Gateway` | Compila la libreria (0 avvisi, 0 errori). |
+| 52 | `dotnet test` | Esegue i test: 37 superati. |
+| 53 | `git add -A` | Prepara per il commit l'incremento 3 di GTW e i documenti aggiornati. |
+| 54 | `git commit -m "GTW incremento 3: comandi LIG, SEN, GRP, SCN e DeconzCommandResult"` | Commit locale. |

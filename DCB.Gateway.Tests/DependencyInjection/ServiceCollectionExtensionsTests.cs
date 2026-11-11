@@ -2,6 +2,10 @@ using DCB.Gateway.Abstractions;
 using DCB.Gateway.Authentication;
 using DCB.Gateway.Clients.Config;
 using DCB.Gateway.Clients.FullState;
+using DCB.Gateway.Clients.Groups;
+using DCB.Gateway.Clients.Lights;
+using DCB.Gateway.Clients.Scenes;
+using DCB.Gateway.Clients.Sensors;
 using DCB.Gateway.Configuration;
 using DCB.Gateway.DependencyInjection;
 using DCB.Gateway.Tests.Fakes;
@@ -20,6 +24,10 @@ public class ServiceCollectionExtensionsTests
         Assert.NotNull(provider.GetRequiredService<IDeconzAuthenticator>());
         Assert.NotNull(provider.GetRequiredService<IConfigClient>());
         Assert.NotNull(provider.GetRequiredService<IFullStateClient>());
+        Assert.NotNull(provider.GetRequiredService<ILightsClient>());
+        Assert.NotNull(provider.GetRequiredService<ISensorsClient>());
+        Assert.NotNull(provider.GetRequiredService<IGroupsClient>());
+        Assert.NotNull(provider.GetRequiredService<IScenesClient>());
         Assert.Same(
             provider.GetRequiredService<IDeconzAuthenticator>(),
             provider.GetRequiredService<IDeconzAuthenticator>());
