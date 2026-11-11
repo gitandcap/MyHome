@@ -100,6 +100,10 @@ Ogni sezione corrisponde a una classe Options nella cartella `Configuration` del
 | `Deconz:WsPort` | Porta WebSocket *(facoltativa)* | Se vuota si usa `websocketport` letto da deCONZ; se valorizzata ha la precedenza (vedi sotto) |
 | `Deconz:DeviceType` | Nome con cui il DCB si registra su deCONZ (`devicetype` di `POST /api`) | Es. `MyHome#DCB` |
 | `Deconz:UnlockRetrySeconds` | Intervallo tra i tentativi di `POST /api` durante l'attesa dello sblocco | |
+| `Deconz:RequestTimeoutSeconds` | Tempo massimo di risposta REST (e di connessione WebSocket), in secondi | Predefinito 10; oltre, deCONZ è "non raggiungibile" |
+| `Deconz:WsReconnectInitialDelaySeconds` | Prima attesa prima di riconnettere il WebSocket, in secondi; raddoppia a ogni tentativo fallito | Predefinito 2 |
+| `Deconz:WsReconnectMaxDelaySeconds` | Attesa massima tra due tentativi di riconnessione, in secondi | Predefinito 60 |
+| `Deconz:WsKeepAliveSeconds` | Intervallo dei ping WebSocket e tempo massimo per la risposta, in secondi | Predefinito 30; deCONZ risponde ai ping (verificato l'11/11/2026) |
 | `Bootstrap:DefaultMode` | Modalità di avvio predefinita: `auto` / `sbs` | Sovrascrivibile con `--mode` |
 | `Kestrel:…` | Porta di ascolto di `DCB.Server` | Configurazione standard di ASP.NET Core; valore da scegliere (PA-07) |
 | `Tcl:SharedKey` | Chiave condivisa per la connessione delle TCL | ANA-06 §6. In `appsettings.json` **vuota**, con il commento che rimanda a `cfg.json`: è un segreto |

@@ -94,7 +94,7 @@ schema e sono rinviati (PA-16, ANA-06 §4.6). Ordine di sviluppo della prima ver
 | 1 – base, `CFG`, `AUT` | **completato l'11/11/2026** | 21 test superati, build senza avvisi |
 | 2 – `FUL` | **completato l'11/11/2026** | 27 test superati (totale), con lo stato completo reale dell'impianto |
 | 3 – comandi `LIG`, `SEN`, `GRP`, `SCN` | **completato l'11/11/2026** | 37 test superati (totale) |
-| 4 – `WSS` | da fare | |
+| 4 – `WSS` | **completato l'11/11/2026** | 44 test superati (totale); prova dal vivo sull'impianto riuscita |
 
 **Dettagli dell'incremento 1** (oltre a quanto previsto al §2):
 - `DeconzGatewayOptions`: parametri `Host`, `HttpPort`, `WsPort`, `DeviceType`, `UnlockRetrySeconds` e il nuovo
@@ -132,3 +132,22 @@ schema e sono rinviati (PA-16, ANA-06 §4.6). Ordine di sviluppo della prima ver
 - `DeconzCommandResult` (`Applied`: indirizzo → valore, `Errors`, `IsFullySuccessful`): un comando applicato in parte
   restituisce il risultato misto; un comando rifiutato del tutto solleva `DeconzApiException`.
 - `DeconzResourcePath` codifica gli id nei percorsi: un id come `1/../config` non può indirizzare un'altra risorsa.
+
+**Dettagli dell'incremento 4**:
+- `IDeconzEventStream`: `ReadEventsAsync` (flusso `IAsyncEnumerable<DeconzWsEventDto>`, un solo consumatore), proprietà
+  `State` ed evento `ConnectionStateChanged` (`Connected`, `Disconnected`, `Reconnecting`) con `IsReconnection`, vero
+  quando la connessione torna dopo essere stata persa: è il segnale per la rilettura di `DCB-SYN`.
+- Connessione `ws://` sulla porta `Deconz:WsPort` o, se vuota, su `websocketport` riletta da `/config` a ogni connessione
+  (PA-19). Riconnessione con attese crescenti (2 s, 4 s, 8 s… fino a 60 s); messaggi non JSON o diversi da
+  `"t":"event"` ignorati.
+- `IWebSocketConnection` / `IWebSocketConnectionFactory` (interni) isolano `ClientWebSocket`: nei test una connessione
+  finta programmabile. `ClientWebSocketConnection` ricompone i messaggi frammentati e usa i ping
+  (`KeepAliveInterval` + `KeepAliveTimeout`) per accorgersi delle connessioni "morte".
+- Nuovi parametri: `WsReconnectInitialDelaySeconds`, `WsReconnectMaxDelaySeconds`, `WsKeepAliveSeconds` (ANA-07 §3.1).
+- `DeconzWsEventDto`: `t`, `e`, `r`, `id`, `uniqueid`, `state` / `config` / `attr` a dizionario, risorsa intera per
+  `added` (`light`, `sensor`, `group`), `gid` / `scid` per `scene-called`.
+- **Prova dal vivo** (11/11/2026): programma temporaneo con `AddDeconzGateway` + `IDeconzEventStream` collegato a deCONZ
+  sulla porta 80: connessione riuscita, eventi reali ricevuti (`attr.lastseen` delle tapparelle).
+
+**Prima versione di GTW completata** (incrementi 1–4, PA-16). Restano aperti PA-04 (regole del bootstrap) e PA-18
+(risposta di deCONZ a una chiave non valida).

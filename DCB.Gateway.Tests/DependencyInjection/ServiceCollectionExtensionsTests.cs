@@ -9,6 +9,7 @@ using DCB.Gateway.Clients.Sensors;
 using DCB.Gateway.Configuration;
 using DCB.Gateway.DependencyInjection;
 using DCB.Gateway.Tests.Fakes;
+using DCB.Gateway.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -28,6 +29,7 @@ public class ServiceCollectionExtensionsTests
         Assert.NotNull(provider.GetRequiredService<ISensorsClient>());
         Assert.NotNull(provider.GetRequiredService<IGroupsClient>());
         Assert.NotNull(provider.GetRequiredService<IScenesClient>());
+        Assert.NotNull(provider.GetRequiredService<IDeconzEventStream>());
         Assert.Same(
             provider.GetRequiredService<IDeconzAuthenticator>(),
             provider.GetRequiredService<IDeconzAuthenticator>());

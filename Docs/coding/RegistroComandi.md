@@ -112,3 +112,10 @@ API key ottenuta da Postman, porta WebSocket 443 confermata, cartelle di sola le
 | 52 | `dotnet test` | Esegue i test: 37 superati. |
 | 53 | `git add -A` | Prepara per il commit l'incremento 3 di GTW e i documenti aggiornati. |
 | 54 | `git commit -m "GTW incremento 3: comandi LIG, SEN, GRP, SCN e DeconzCommandResult"` | Commit locale. |
+| 55 | `git push` | Invia a GitHub il commit precedente (eseguito da Andrea). |
+| – | *(file creati/modificati con l'editor)* `DCB.Gateway\WebSocket\**`, `DCB.Gateway\Dto\WebSocket\DeconzWsEventDto.cs`, `DeconzGatewayOptions.cs`, `ServiceCollectionExtensions.cs`, `DCB.Gateway.Tests\**`, `Tools\Postman\deCONZ-locale.postman_environment.json` (`deconzWsUrl` → `ws://127.0.0.1:80`) | Incremento 4 di GTW (`DCB-GTW-WSS`) e correzione dell'ambiente Postman (PA-19). |
+| 56 | `dotnet build DCB.Gateway` | Compila la libreria (0 avvisi, 0 errori). |
+| 57 | `dotnet test` (ripetuto 5 volte con `--no-build`) | Esegue i test: 44 superati a ogni esecuzione (verifica di stabilità dei test con tempo simulato). |
+| 58 | `dotnet run WsProva.cs` *(programma temporaneo nella scratchpad, fuori dal repository)* | Prova dal vivo di `IDeconzEventStream` sul deCONZ dell'impianto: connessione `ws://127.0.0.1:80` riuscita, eventi ricevuti. |
+| 59 | `git add -A` | Prepara per il commit l'incremento 4 di GTW e i documenti aggiornati. |
+| 60 | `git commit -m "GTW incremento 4: WebSocket deCONZ (WSS), PA-19 chiuso"` | Commit locale. |

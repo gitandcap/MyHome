@@ -7,6 +7,7 @@ using DCB.Gateway.Clients.Scenes;
 using DCB.Gateway.Clients.Sensors;
 using DCB.Gateway.Configuration;
 using DCB.Gateway.Core;
+using DCB.Gateway.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -38,7 +39,12 @@ public static class ServiceCollectionExtensions
             .Validate(options => options.WsPort is null || IsValidPort(options.WsPort.Value), "Deconz:WsPort deve essere vuota o tra 1 e 65535.")
             .Validate(options => !string.IsNullOrWhiteSpace(options.DeviceType), "Deconz:DeviceType è obbligatorio.")
             .Validate(options => options.RequestTimeoutSeconds > 0, "Deconz:RequestTimeoutSeconds deve essere maggiore di 0.")
-            .Validate(options => options.UnlockRetrySeconds > 0, "Deconz:UnlockRetrySeconds deve essere maggiore di 0.");
+            .Validate(options => options.UnlockRetrySeconds > 0, "Deconz:UnlockRetrySeconds deve essere maggiore di 0.")
+            .Validate(options => options.WsReconnectInitialDelaySeconds > 0, "Deconz:WsReconnectInitialDelaySeconds deve essere maggiore di 0.")
+            .Validate(
+                options => options.WsReconnectMaxDelaySeconds >= options.WsReconnectInitialDelaySeconds,
+                "Deconz:WsReconnectMaxDelaySeconds deve essere maggiore o uguale a Deconz:WsReconnectInitialDelaySeconds.")
+            .Validate(options => options.WsKeepAliveSeconds > 0, "Deconz:WsKeepAliveSeconds deve essere maggiore di 0.");
 
         services.AddHttpClient(DeconzRestClient.HttpClientName);
         services.AddLogging();
@@ -53,6 +59,8 @@ public static class ServiceCollectionExtensions
         services.TryAddSingleton<IGroupsClient, GroupsClient>();
         services.TryAddSingleton<IScenesClient, ScenesClient>();
         services.TryAddSingleton<IDeconzAuthenticator, DeconzAuthenticator>();
+        services.TryAddSingleton<IWebSocketConnectionFactory, ClientWebSocketConnectionFactory>();
+        services.TryAddSingleton<IDeconzEventStream, DeconzEventStream>();
 
         return services;
     }

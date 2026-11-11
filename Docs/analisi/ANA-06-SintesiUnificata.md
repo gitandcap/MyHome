@@ -104,7 +104,8 @@ MyHome.sln
 
 ### 4.4 WebSocket deCONZ (`DCB-GTW-WSS`)
 - Servizio in background eseguito da `DCB.Server`, avviato come passo di bootstrap **dopo `DCB-GTW-AUT`**.
-- **Porta**: se il parametro `Deconz:WsPort` è vuoto, viene letta da `GET /api/{key}/config` (`websocketport`);
+- **Connessione** `ws://` non cifrata *(decisa l'11/11/2026, PA-19)*; ping periodici per accorgersi delle connessioni "morte".
+- **Porta**: se il parametro `Deconz:WsPort` è vuoto, viene letta da `GET /api/{key}/config` (`websocketport`, oggi 80);
   se è valorizzato ha la precedenza. Serve per deCONZ in container con porta pubblicata diversa da quella interna
   (ANA-07 §3).
 - Gli eventi ricevuti sono esposti come flusso (`IAsyncEnumerable<DeconzWsEventDto>`); `WSS` non aggiorna `DBZ`:
@@ -331,7 +332,8 @@ Console realizzata con **Terminal.Gui**, divisa in tre zone:
      - `deCONZ.exe` 2.33.2 (API 1.16.0), installato per utente in `C:\Users\Andrea\AppData\Local\Programs\deCONZ\`;
      - porte in ascolto su `0.0.0.0`: **80** (REST) e **443**. *Correzione dell'11/11/2026*: lo stato completo reale riporta
        `websocketport: 80` (WebSocket `ws://`, stessa porta della REST) e `websocketport_wss: 443` (WebSocket cifrato `wss://`);
-       il 09/11/2026 la 443 era stata attribuita per errore a `websocketport`. Quale usare: PA-19;
+       il 09/11/2026 la 443 era stata attribuita per errore a `websocketport`. Prova dell'11/11/2026: solo `ws://` sulla 80
+       accetta connessioni; il DCB usa quella (PA-19, chiuso);
      - ConBee II collegato su **COM3** (`USB\VID_1CF1&PID_0030`), riconosciuto da deCONZ (`devicename`: "ConBee II");
      - `GET http://127.0.0.1/api/config` senza API key: 200 OK, `bridgeid` `00212EFFFF051A5C`;
      - endpoint `/devices` e `/alarmsystems` disponibili in questa versione (`DCB-GTW-DEV`, `DCB-GTW-ALM`).

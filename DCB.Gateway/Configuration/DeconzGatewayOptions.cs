@@ -26,12 +26,31 @@ public sealed class DeconzGatewayOptions
     public int HttpPort { get; set; } = 80;
 
     /// <summary>
-    /// Porta del WebSocket degli eventi. Facoltativa.
-    /// Se vuota (<c>null</c>, predefinito) si usa il campo <c>websocketport</c> letto da <c>/config</c>;
-    /// se valorizzata ha la precedenza (serve con deCONZ in container e porta pubblicata diversa, ANA-07 §3.1).
-    /// Valori ammessi: 1–65535 oppure <c>null</c>.
+    /// Porta del WebSocket degli eventi (connessione <c>ws://</c>, non cifrata, PA-19). Facoltativa.
+    /// Se vuota (<c>null</c>, predefinito) si usa il campo <c>websocketport</c> letto da <c>/config</c>
+    /// (80 su deCONZ 2.33.2 in locale); se valorizzata ha la precedenza (serve con deCONZ in container e porta
+    /// pubblicata diversa, ANA-07 §3.1). Valori ammessi: 1–65535 oppure <c>null</c>.
     /// </summary>
     public int? WsPort { get; set; }
+
+    /// <summary>
+    /// Attesa prima del primo tentativo di riconnessione del WebSocket, in secondi; raddoppia a ogni tentativo fallito
+    /// fino a <see cref="WsReconnectMaxDelaySeconds"/>. Predefinito: <c>2</c>. Valori ammessi: maggiore di 0.
+    /// </summary>
+    public int WsReconnectInitialDelaySeconds { get; set; } = 2;
+
+    /// <summary>
+    /// Attesa massima tra due tentativi di riconnessione del WebSocket, in secondi.
+    /// Predefinito: <c>60</c>. Valori ammessi: maggiore o uguale a <see cref="WsReconnectInitialDelaySeconds"/>.
+    /// </summary>
+    public int WsReconnectMaxDelaySeconds { get; set; } = 60;
+
+    /// <summary>
+    /// Intervallo dei ping sul WebSocket, in secondi; se deCONZ non risponde entro lo stesso tempo la connessione
+    /// è considerata persa (rileva le connessioni "morte" senza chiusura, verificato che deCONZ risponde ai ping).
+    /// Predefinito: <c>30</c>. Valori ammessi: maggiore di 0.
+    /// </summary>
+    public int WsKeepAliveSeconds { get; set; } = 30;
 
     /// <summary>
     /// Nome con cui il DCB si registra su deCONZ quando chiede una nuova API key (campo <c>devicetype</c> di <c>POST /api</c>).
