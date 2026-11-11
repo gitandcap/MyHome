@@ -119,3 +119,7 @@ API key ottenuta da Postman, porta WebSocket 443 confermata, cartelle di sola le
 | 58 | `dotnet run WsProva.cs` *(programma temporaneo nella scratchpad, fuori dal repository)* | Prova dal vivo di `IDeconzEventStream` sul deCONZ dell'impianto: connessione `ws://127.0.0.1:80` riuscita, eventi ricevuti. |
 | 59 | `git add -A` | Prepara per il commit l'incremento 4 di GTW e i documenti aggiornati. |
 | 60 | `git commit -m "GTW incremento 4: WebSocket deCONZ (WSS), PA-19 chiuso"` | Commit locale. |
+| 61 | `git push` | Invia a GitHub il commit precedente (eseguito da Andrea). |
+| – | *(file modificati con l'editor)* `ANA-06-SintesiUnificata.md` (§4.2, §9), `ANA-07-FileJsonDCB.md` (§3.1), `PuntiApertiAnalisi.md`, `COD-02-GatewayConnector.md` | Decisioni su PA-04: ripetizioni in `DCB-BOT`, regole `sbs`, parametri `Bootstrap:*` delle attese; PA-04 chiuso. |
+| 62 | `git add -A` | Prepara per il commit i documenti aggiornati con le decisioni su PA-04. |
+| 63 | `git commit -m "Analisi: PA-04 chiuso (ripetizioni in DCB-BOT, regole sbs, attese)"` | Commit locale. |

@@ -105,6 +105,9 @@ Ogni sezione corrisponde a una classe Options nella cartella `Configuration` del
 | `Deconz:WsReconnectMaxDelaySeconds` | Attesa massima tra due tentativi di riconnessione, in secondi | Predefinito 60 |
 | `Deconz:WsKeepAliveSeconds` | Intervallo dei ping WebSocket e tempo massimo per la risposta, in secondi | Predefinito 30; deCONZ risponde ai ping (verificato l'11/11/2026) |
 | `Bootstrap:DefaultMode` | Modalità di avvio predefinita: `auto` / `sbs` | Sovrascrivibile con `--mode` |
+| `Bootstrap:RetryInitialDelaySeconds` | Prima attesa dopo un fallimento dei passi `gateway` o `sync` (e della rilettura di `DCB-SYN`), in secondi; raddoppia a ogni tentativo | Predefinito 5 (PA-04) |
+| `Bootstrap:RetryMaxDelaySeconds` | Attesa massima tra due tentativi, in secondi | Predefinito 60 (PA-04) |
+| `Bootstrap:SbsUnlockTimeoutSeconds` | Tempo massimo dell'attesa dello sblocco del gateway in modalità `sbs`, in secondi | Predefinito 120, due finestre Phoscon (PA-04); in `auto` nessun limite |
 | `Kestrel:…` | Porta di ascolto di `DCB.Server` | Configurazione standard di ASP.NET Core; valore da scegliere (PA-07) |
 | `Tcl:SharedKey` | Chiave condivisa per la connessione delle TCL | ANA-06 §6. In `appsettings.json` **vuota**, con il commento che rimanda a `cfg.json`: è un segreto |
 

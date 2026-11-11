@@ -82,9 +82,43 @@ MyHome.sln
   chiusura automatica), *degradati* (condizione o avviso, si prosegue).
 - Ogni passo ha uno stato (*non eseguito*, *in corso*, *in attesa*, *completato*, *fallito*), restituito da
   `GET /api/bootstrap` (ANA-05 §4).
-- Ancora da decidere (PA-04): chi ripete i tentativi quando deCONZ non è raggiungibile (proposta: `GTW` fa un solo
-  tentativo, `DCB-BOT` ripete), regole della modalità `sbs` (rilancio dei passi, prerequisiti, nessun tentativo
-  automatico), valori delle attese crescenti.
+
+**deCONZ non raggiungibile** *(deciso l'11/11/2026, PA-04)*. `GTW` fa un solo tentativo e segnala il problema con
+`DeconzUnreachableException`; la ripetizione spetta a `DCB-BOT`. In modalità `auto`:
+
+| Passo che fallisce | Comportamento di `DCB-BOT` |
+| --- | --- |
+| `gateway` | Condizione "deCONZ non raggiungibile", nuovi tentativi con attese crescenti; al primo successo la condizione si chiude e si prosegue |
+| `auth` (deCONZ cade durante la verifica o l'attesa dello sblocco) | Si torna al passo `gateway` e al suo comportamento |
+| `sync` | Come `gateway`, ma ripetendo solo `sync` |
+| `events` | Nessun intervento: la riconnessione è già gestita da `WSS` (§4.4) |
+
+Il passo `config` resta *bloccante*: non si ripete, serve correggere il file e riavviare.
+
+**Regole della modalità `sbs`** *(decise l'11/11/2026, PA-04)*:
+1. **Un passo alla volta**: un secondo `POST /api/bootstrap/steps/{stepName}` mentre un passo è in corso riceve `409 Conflict`.
+2. **Ogni passo si può rilanciare**, anche se già completato (es. rifare `sync` o `auth`).
+3. **Fuori sequenza sì, ma con i prerequisiti**: se ne manca uno il passo fallisce subito con un errore Problem Details
+   che indica il passo mancante.
+
+   | Passo | Prerequisito |
+   | --- | --- |
+   | `config` | – |
+   | `storage`, `gateway` | `config` |
+   | `auth` | `gateway` |
+   | `events`, `sync` | `auth` |
+   | `ready` | tutti i precedenti |
+
+4. **Nessun nuovo tentativo automatico**: se `gateway` o `sync` falliscono, il passo risulta *fallito* e si rilancia a mano.
+5. **Eccezione, l'attesa dello sblocco in `auth`**: il tentativo ripetuto fa parte del protocollo deCONZ (serve
+   "Authenticate app" in Phoscon), ma in `sbs` ha un tempo massimo (`Bootstrap:SbsUnlockTimeoutSeconds`), scaduto il
+   quale il passo risulta fallito. In `auto` l'attesa non ha limite.
+
+**Attese crescenti** *(decise l'11/11/2026, PA-04)*: stesso schema del WebSocket (l'attesa raddoppia fino a un massimo)
+ma con parametri propri, perché in casa deCONZ in locale può mancare per minuti (parte dopo il login), mentre il
+WebSocket di solito si interrompe per pochi secondi. Parametri in ANA-07 §3.1: `Bootstrap:RetryInitialDelaySeconds`
+(5 s, poi 10, 20, 40…), `Bootstrap:RetryMaxDelaySeconds` (60 s), `Bootstrap:SbsUnlockTimeoutSeconds` (120 s, due
+finestre Phoscon). Le stesse attese valgono per la rilettura fallita di `DCB-SYN` (§4.7).
 
 ### 4.3 Autenticazione deCONZ (`DCB-GTW-AUT`)
 - **All'avvio non crea una nuova API key**: usa l'ultima utilizzata, letta tramite `IApiKeyStore`
@@ -351,7 +385,7 @@ Console realizzata con **Terminal.Gui**, divisa in tre zone:
 3. **Acronimi dei sottomoduli** in `Acronimi.md` §3 (`SHR-*`, `DCB-*`, `TCL-*`): **confermati il 07/11/2026**.
 4. **Argomenti non ancora analizzati**:
    - convenzione dei codici dispositivo in `MDZ` (tipi, stanze, numerazione);
-   - ~~elenco e ordine dei passi di bootstrap~~ → sequenza approvata l'11/11/2026 (§4.2); restano le regole di PA-04;
+   - ~~elenco e ordine dei passi di bootstrap~~ → definiti l'11/11/2026 (§4.2, PA-04 chiuso);
    - topic e categorie degli eventi, quali eventi sono persistenti;
    - ~~formato e posizione su disco dei file `CFG`, `DBZ`, `MDZ`~~ → descritti in ANA-07 (con il nuovo `KEY`).
 5. **`GTW` autonomo (§4.6)**:

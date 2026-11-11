@@ -2,7 +2,7 @@
 
 **Data:** 11/11/2026
 **Fonti:** ANA-06 §4.3–4.8 e §8, ANA-07 §3, sessioni di coding e di analisi dell'11/11/2026
-**Stato:** organizzazione e scelte tecniche confermate; aggiornato l'11/11/2026 con le decisioni su PA-13…PA-17 (resta aperto PA-04, §4)
+**Stato:** organizzazione e scelte tecniche confermate; aggiornato l'11/11/2026 con le decisioni su PA-13…PA-17 e su PA-04 (chiuso l'11/11/2026)
 
 ---
 
@@ -80,7 +80,7 @@ schema e sono rinviati (PA-16, ANA-06 §4.6). Ordine di sviluppo della prima ver
 | ID | Punto | Stato | Documento |
 | --- | --- | --- | --- |
 | PA-01 | Esempi JSON reali di deCONZ per i test dei DTO | aperto | `PuntiApertiCoding.md` |
-| PA-04 | Passi di bootstrap: sequenza approvata; restano deCONZ non raggiungibile, regole `sbs`, attese crescenti | aperto | `PuntiApertiAnalisi.md`, ANA-06 §4.2 |
+| PA-04 | Passi di bootstrap: sequenza, ripetizioni in `DCB-BOT`, regole `sbs`, attese | chiuso 11/11/2026 | `PuntiApertiAnalisi.md`, ANA-06 §4.2 |
 | PA-13 | Rilettura dello stato dopo una riconnessione → `ConnectionStateChanged` + `DCB-SYN` | chiuso 11/11/2026 | ANA-06 §4.4, §4.7 |
 | PA-14 | Stato completo → nuovo `DCB-GTW-FUL` | chiuso 11/11/2026 | ANA-06 §4.5 |
 | PA-15 | DTO delle richieste | chiuso 11/11/2026 | ANA-06 §4.5 |
@@ -101,7 +101,7 @@ schema e sono rinviati (PA-16, ANA-06 §4.6). Ordine di sviluppo della prima ver
   `RequestTimeoutSeconds` (tempo massimo di risposta REST, predefinito 10 s); validati alla registrazione.
 - `Core`: oltre a `DeconzRestClient` e `DeconzErrorReader`, `DeconzApiKeyHolder` (chiave in uso, impostata da `AUT`),
   `DeconzJson` (opzioni JSON comuni, `null` esclusi), `DeconzErrorTypes`, `DeconzApiException`,
-  `DeconzUnreachableException` (applicazione provvisoria di PA-04 (a): un solo tentativo, nessuna ripetizione in GTW).
+  `DeconzUnreachableException` (PA-04 (a), confermato l'11/11/2026: un solo tentativo, nessuna ripetizione in GTW).
 - `DeconzRestClient` crea il client HTTP a ogni richiesta da `IHttpClientFactory` (client con nome `Deconz`), così i servizi
   possono essere singleton; il tempo massimo usa `TimeProvider`; l'API key è mascherata (`***`) nei log.
 - `DeconzConfigDto` non mappa la `whitelist`. `ConfigClient.GetConfigAsync` tratta come chiave non valida una risposta
@@ -149,5 +149,5 @@ schema e sono rinviati (PA-16, ANA-06 §4.6). Ordine di sviluppo della prima ver
 - **Prova dal vivo** (11/11/2026): programma temporaneo con `AddDeconzGateway` + `IDeconzEventStream` collegato a deCONZ
   sulla porta 80: connessione riuscita, eventi reali ricevuti (`attr.lastseen` delle tapparelle).
 
-**Prima versione di GTW completata** (incrementi 1–4, PA-16). Restano aperti PA-04 (regole del bootstrap) e PA-18
+**Prima versione di GTW completata** (incrementi 1–4, PA-16). Resta aperto PA-18
 (risposta di deCONZ a una chiave non valida).
